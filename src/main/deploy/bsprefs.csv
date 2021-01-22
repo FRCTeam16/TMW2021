@@ -17,7 +17,7 @@ TwistI, 0
 TwistP, 0.006
 Vision.x.D, 0
 Vision.x.I, 0
-Vision.x.P, 0.1
+Vision.x.P, 0.05
 Vision.x.range, 1.0
 Vision.x.threshold, 50
 Feeder.Preload.Time, 0.5
@@ -38,7 +38,7 @@ FeederArm.Pos.FwdLimit, -5000
 FeederArm.Pos.RevLimit, -160000
 FeederArm.Pos.Down, -10000
 FeederArm.Pos.ShortShot, -65000
-FeederArm.Pos.PlayerStation, -81000
+FeederArm.Pos.PlayerStation, -75000
 FeederArm.Pos.Vertical, -108000
 TurretRotation.FwdLimit, 130
 TurretRotation.RevLimit, -715
@@ -51,7 +51,7 @@ TurretRotation.PID.I, 0.0
 TurretRotation.PID.D, 0.0
 TurretRotation.PID.F, 0.0
 Intake.Jam.Threshold, 40.0
-ShootingProfile.Medium.Shooter, 4600
+ShootingProfile.Medium.Shooter, 4700
 ShootingProfile.Medium.Feeder, -3000
-ShootingProfile.Long.Shooter, 4800
-ShootingProfile.Long.Feeder, -3000
+ShootingProfile.Long.Shooter, 5000
+ShootingProfile.Long.Feeder, -3200

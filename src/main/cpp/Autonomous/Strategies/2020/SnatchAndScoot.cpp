@@ -63,21 +63,30 @@ SnatchAndScoot::SnatchAndScoot(std::shared_ptr<World> world)
 
 
     const double sweepAngle = 115.0;
+    auto rotate = new Rotate(sweepAngle);
+    rotate->SetContinueOnTimeout(rotate);
     steps.push_back(new ConcurrentStep({
-        new Rotate(sweepAngle),
+        rotate,
         new SetFeederArmPosition(FeederArm::Position::kPlayerStation),
         new EnableShooter(true),
     }));
-    steps.push_back(new ConcurrentStep({
-        new EnableVisionTracking(true),
-        new Delay(1.0)
-    }));
+
+    // steps.push_back(new ConcurrentStep({
+    //     new EnableVisionTracking(true),
+    //     new Delay(1.0)
+    // }));
+    steps.push_back(new EnableVisionTracking(true));
+    steps.push_back(new ConcurrentStep({ new EnableIntake(true, true), new Delay(0.25) }));
+    steps.push_back(new ConcurrentStep({ new EnableIntake(true, false), new Delay(0.25) }));
+    steps.push_back(new ConcurrentStep({ new EnableIntake(true, true), new Delay(0.25) }));
+    steps.push_back(new ConcurrentStep({ new EnableIntake(true, false), new Delay(0.25) }));
+    
     steps.push_back(new ConcurrentStep({
         new EnableFeeder(true),
         new Delay(1.5)
     }));
 
-    auto driveToBar = new DriveToDistance(sweepAngle, 0.15, 18_in, -19.5_in);
+    auto driveToBar = new DriveToDistance(sweepAngle, 0.15, 19.5_in, -21.12_in);
     steps.push_back(new ConcurrentStep({
         driveToBar,
         new EnableFeeder(false),
