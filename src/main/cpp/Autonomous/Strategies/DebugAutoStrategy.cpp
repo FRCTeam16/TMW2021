@@ -69,6 +69,12 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 void DebugAutoStrategy::Init(std::shared_ptr<World> world) {
 	std::cout << "DebugAutoStrategy::Init()\n";
 	// AutoStartPosition startPosition = world->GetStartPosition();
+	const double speed = 0.70;
+	const double angle = 0.0;
+	steps.push_back(new DriveToDistance(angle, speed, 0_in, -60_in));
+	steps.push_back(new DriveToDistance(angle, speed, -60_in, 0_in));
+	steps.push_back(new DriveToDistance(angle, speed, 0_in, 60_in));
+	steps.push_back(new DriveToDistance(angle, speed, 60_in, 0_in));
 }
 
 void DebugAutoStrategy::DebugSimple() {
