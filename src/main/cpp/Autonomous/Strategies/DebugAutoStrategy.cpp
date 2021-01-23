@@ -35,7 +35,7 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	// Measure();
 	std::cout << "--- DEBUG Autonomous ---\n";
 
-	steps.push_back(new SetTurretPosition(-180, 0.2_s));
+	// steps.push_back(new SetTurretPosition(-180, 0.2_s));
 
 	// const double firstAngle = 180.0;
 	// steps.push_back(new ConcurrentStep({
@@ -69,12 +69,13 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 void DebugAutoStrategy::Init(std::shared_ptr<World> world) {
 	std::cout << "DebugAutoStrategy::Init()\n";
 	// AutoStartPosition startPosition = world->GetStartPosition();
-	const double speed = 0.70;
+	auto xmove = 62_in;
+	const int ymove = 180;
+	const double speed = 0.50;
 	const double angle = 0.0;
-	steps.push_back(new DriveToDistance(angle, speed, 0_in, -60_in));
-	steps.push_back(new DriveToDistance(angle, speed, -60_in, 0_in));
-	steps.push_back(new DriveToDistance(angle, speed, 0_in, 60_in));
-	steps.push_back(new DriveToDistance(angle, speed, 60_in, 0_in));
+	// steps.push_back(new OpenDriveToDistance(angle, 0.5, 0.0, 40.7, 1, 0.3));
+	// steps.push_back(new DriveToDistance(angle, speed, 0_in, 40.7_in));
+	steps.push_back(new DriveToDistance(angle, speed, -62_in, 36_in));
 }
 
 void DebugAutoStrategy::DebugSimple() {

@@ -8,7 +8,7 @@
 #include "Autonomous/Strategies/DebugAutoStrategy.h"
 #include "Autonomous/Strategies/2020/GoalSideSweepStrategy.h"
 #include "Autonomous/Strategies/2020/SnatchAndScoot.h"
-
+#include "Autonomous/Strategies/2021/SlalomAutoStrategy.h"
 
 
 AutoManager::AutoManager() :
@@ -16,10 +16,8 @@ AutoManager::AutoManager() :
 		strategies(new frc::SendableChooser<int>())
 {
 	strategies->AddOption("0 - None", AutoStrategy::kNone);
-	strategies->AddOption("1 - GoalSideSweep Center", AutoStrategy::kGoalSideSweepCenter);
-	strategies->AddOption("2 - GoalSideSweep Offset", AutoStrategy::kGoalSideSweepOffset);
-	strategies->SetDefaultOption("3 - SnatchAndScoot", AutoStrategy::kSnatchAndShoot);
 	strategies->AddOption("99 - Debug Auto Strategy", AutoStrategy::kDebug);
+	strategies->AddOption("1 - Slalom Drive",AutoStrategy::kSlalom);
 
 	positions->SetDefaultOption("2 - Right", AutoStartPosition::kRight);
 	// positions->AddOption("1 - Center", AutoStartPosition::kCenter);
@@ -48,18 +46,10 @@ std::unique_ptr<Strategy> AutoManager::CreateStrategy(const AutoStrategy &key, s
 		std::cout << "AUTOMAN: Selected DEBUG \n";
 		strategy = new DebugAutoStrategy(world);
 		break;
-	case kGoalSideSweepOffset:
-		std::cout << "AUTOMAN: Selected GoalSideSweep Offset \n";
-		strategy = new GoalSideSweepStrategy(world, GoalSideSweepStrategy::Mode::kOffset);
-		break;
-	case kGoalSideSweepCenter:
-		std::cout << "AUTOMAN: Selected GoalSideSweep Center \n";
-		strategy = new GoalSideSweepStrategy(world, GoalSideSweepStrategy::Mode::kCenter);
-		break;
-	case kSnatchAndShoot:
-		std::cout << "AUTOMAN: Selected SnatchAndShoot \n";
-		strategy = new SnatchAndScoot(world);
-		break;
+	case kSlalom: 
+	     std::cout << "AUTOMAN: Selected Slalom Drive \n";
+		 strategy = new SlalomAutoStrategy(world);
+		 break;
 	default:
 		// TODO: Fill in sane default
 		std::cerr << "No valid strategy selected\n";
