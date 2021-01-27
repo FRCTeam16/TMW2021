@@ -22,7 +22,7 @@ public:
 protected:
 	unsigned int currentStep = 0;
 	std::vector<Step*> steps;
-	void RunDrives(const CrabInfo *crab, bool showMessage = true);
+	void RunDrives(const CrabInfo *crab, std::shared_ptr<World> world, bool showMessage = true);
 	const std::unique_ptr<CrabInfo> STOP { new CrabInfo() };
 private:
 	bool finished = false;

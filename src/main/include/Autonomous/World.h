@@ -14,8 +14,8 @@ private:
 
 	double driveDistance = 0;
 	double driveDistanceOvershoot = 0;
-	bool teamSideMode = false;
-	bool autoTraverse = false;
+
+	CrabInfo lastCrab;
 public:
 	World();
 	virtual ~World() {}
@@ -32,6 +32,9 @@ public:
 
 	void SetDriveDistanceOvershoot(double d) { driveDistanceOvershoot = d; }
 	double GetDriveDistanceOvershoot() { return driveDistanceOvershoot; }
+
+	void SetLastCrab(CrabInfo crabInfo) { lastCrab = crabInfo; }
+	CrabInfo& GetLastCrab() { return lastCrab; }
 };
 
 #endif /* SRC_AUTONOMOUS_WORLD_H_ */

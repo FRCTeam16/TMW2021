@@ -29,7 +29,7 @@ bool StepStrategy::Run(std::shared_ptr<World> world) {
 			std::cout << "!!! StepStrategy -> Finished all auto steps !!!\n";
 			finished = true;
 		}
-		RunDrives(STOP.get(), false);
+		RunDrives(STOP.get(), world, false);
 		return true;
 	}
 
@@ -38,7 +38,7 @@ bool StepStrategy::Run(std::shared_ptr<World> world) {
 	const bool stepComplete = step->Run(world);
 
 	if (!step->IsManualDriveControl()) {
-		RunDrives(step->GetCrabInfo(), true);
+		RunDrives(step->GetCrabInfo(), world, true);
 	}
 
 	if (stepComplete) {
@@ -47,7 +47,7 @@ bool StepStrategy::Run(std::shared_ptr<World> world) {
 	return false;
 }
 
-void StepStrategy::RunDrives(const CrabInfo *crab, bool showMessage) {
+void StepStrategy::RunDrives(const CrabInfo *crab, std::shared_ptr<World> world, bool showMessage) {
 	if (showMessage) {
 		std::cout << "RunDrives -> ";
 		std::cout << "\ttwist: " << std::setw(5) << crab->twist
@@ -56,5 +56,5 @@ void StepStrategy::RunDrives(const CrabInfo *crab, bool showMessage) {
 				  << "\n";
 	}
 	Robot::driveBase->Crab(crab->twist, crab->yspeed, crab->xspeed, crab->gyro);
-
+	world->SetLastCrab(*crab);
 }
