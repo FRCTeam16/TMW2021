@@ -26,20 +26,23 @@ void Robot::RobotInit() {
 	robotMap.reset(new RobotMap());
 	oi.reset(new OI());
     driveBase.reset(new DriveBase());
-    statusReporter->Launch();
+	std::cout << "Robot::RobotInit after driveBase\n";
+    //statusReporter->Launch();
     dmsProcessManager.reset(new DmsProcessManager(statusReporter));
 
+	std::cout << "- before automgr\n";
 	autoManager.reset(new AutoManager());
+	std::cout << "- before automgr\n";
 
+	std::cout << "- before zeroyaw\n";
 	RobotMap::gyro->ZeroYaw();
+	std::cout << "- after zeroyaw\n";
 	// wpi::PortForwarder::GetInstance().Add(5801, "10.0.16.11", 5801);
 
-	std::cout << "Robot::TeleopInit <=\n";
+	std::cout << "Robot::RobotInit <=\n";
 }
 
 void Robot::DisabledInit() {
-	turret->GetTurretRotation().DisableVisionTracking();
-	visionSystem->DisableVisionTracking();
 }
 
 void Robot::DisabledPeriodic() {
@@ -65,6 +68,7 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
 	InitSubsystems();
+	std::cout << "Robot::TelopInit => driveBase->Init";
 	driveBase->InitTeleop();
     std::cout << "Robot::TeleopInit <=\n";
 }
@@ -88,7 +92,7 @@ void Robot::TeleopPeriodic() {
 	 * Testing and Diagnostics
 	**********************************************************/
 	const bool dmsMode = oi->DL14->Pressed();
-	dmsProcessManager->SetRunning(dmsMode);
+	//dmsProcessManager->SetRunning(dmsMode);
 
 	
 	/**********************************************************
@@ -148,7 +152,7 @@ void Robot::RunSubsystems() {
 	// std::cout << "RunSubsystems() =>\n";
 	double start = frc::Timer::GetFPGATimestamp();
 	// double t1 = start;
-    dmsProcessManager->Run();
+    //dmsProcessManager->Run();
 	// double t2 = frc::Timer::GetFPGATimestamp();
 	// std::cout << "Time DMS   : " << fabs(t2 - t1) << "\n";
 	double now = frc::Timer::GetFPGATimestamp();

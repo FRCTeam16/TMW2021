@@ -45,8 +45,8 @@ RobotMap::RobotMap() {
   auto concreteGyro = std::unique_ptr<NavXBSGyro>(new NavXBSGyro(frc::I2C::Port::kMXP));
   gyro = std::move(concreteGyro); 
 
-  compressor.reset(new frc::Compressor{0});
-  compressor->SetClosedLoopControl(true);
+  // compressor.reset(new frc::Compressor{0});
+  // compressor->SetClosedLoopControl(true);
 
   powerDistributionPanel.reset(new frc::PowerDistributionPanel{0});
 }
