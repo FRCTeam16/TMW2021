@@ -53,8 +53,6 @@ private:
   void InstrumentSubsystems();
   void HandleGlobalInputs();
 
-  void HandleArmBrakeButton();
-
   std::unique_ptr<RobotMap> robotMap;
   std::shared_ptr<StatusReporter> statusReporter;
   std::unique_ptr<DmsProcessManager> dmsProcessManager;
@@ -64,12 +62,5 @@ private:
   bool runInstrumentation = false;  // whether to run subsystem instrumentation
 
   // Operator input flags
-  bool preloadPressed = false;    // prevent multiple ball queue commands
-  std::unique_ptr<ShortShotPose> shortShotPose;
-  std::unique_ptr<MediumShotPose> mediumShotPose;
-  std::unique_ptr<TrenchShotPose> trenchShotPose;
-  std::unique_ptr<LongShotPose> longShotPose;
-  frc::DigitalInput toggleArmBreakModeButton{0};
-  bool toggleArmBreakModeButtonPressed = false;
-  
+  frc::DigitalInput toggleArmBreakModeButton{0};  
 };

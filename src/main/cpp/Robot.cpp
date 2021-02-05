@@ -26,43 +26,15 @@ void Robot::RobotInit() {
 	robotMap.reset(new RobotMap());
 	oi.reset(new OI());
     driveBase.reset(new DriveBase());
-	visionSystem.reset(new VisionSystem());
-    statusReporter.reset(new StatusReporter());
-	turret.reset(new Turret(visionSystem));
-	feederArm.reset(new FeederArm());
     statusReporter->Launch();
     dmsProcessManager.reset(new DmsProcessManager(statusReporter));
 
 	autoManager.reset(new AutoManager());
-	controlPanelSystem.reset(new ControlPanelSystem());
 
 	RobotMap::gyro->ZeroYaw();
-
-	shortShotPose.reset(new ShortShotPose());
-	mediumShotPose.reset(new MediumShotPose());
-	trenchShotPose.reset(new TrenchShotPose());
-	longShotPose.reset(new LongShotPose());
-
 	// wpi::PortForwarder::GetInstance().Add(5801, "10.0.16.11", 5801);
 
 	std::cout << "Robot::TeleopInit <=\n";
-}
-
-void Robot::HandleArmBrakeButton()
-{
-	const bool currentValue = toggleArmBreakModeButton.Get();		// current value unpressed is true
-
-	if (!toggleArmBreakModeButtonPressed && !currentValue) {
-		// Set to Coast mode
-		toggleArmBreakModeButtonPressed = true;
-		feederArm->SetArmBrakeMode(false);
-	} else if (toggleArmBreakModeButtonPressed && currentValue) {
-		// Button was pressed, but is no longer
-		feederArm->SetArmBrakeMode(true);
-		toggleArmBreakModeButtonPressed = false;
-	} else if (toggleArmBreakModeButtonPressed && !currentValue) {
-		// button is being held down
-	}
 }
 
 void Robot::DisabledInit() {
@@ -73,9 +45,7 @@ void Robot::DisabledInit() {
 void Robot::DisabledPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 	InstrumentSubsystems();
-	HandleGlobalInputs();
-	HandleArmBrakeButton();
-	
+	HandleGlobalInputs();	
 }
 
 void Robot::AutonomousInit() {
@@ -96,10 +66,6 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {
 	InitSubsystems();
 	driveBase->InitTeleop();
-	visionSystem->ResetMaxOutputRange();
-	visionSystem->SetOffsetDegrees(0.0);
-	visionSystem->GetLimelight()->SelectPipeline(0);
-	feederArm->InitTeleop();
     std::cout << "Robot::TeleopInit <=\n";
 }
 
@@ -116,147 +82,7 @@ void Robot::TeleopPeriodic() {
 	const bool startButtonPressed = oi->GPStart->Pressed();
 	frc::SmartDashboard::PutBoolean("Start Button Pressed", startButtonPressed);
 
-
-	/**********************************************************
-	 * Vision
-	**********************************************************/
-	if (oi->DR3->RisingEdge()) {
-		turret->GetTurretRotation().ToggleVisionTracking();
-	} 
 	HandleGlobalInputs();
-
-	
-	/**********************************************************
-	 * Turret Control
-	**********************************************************/
-	if (oi->GPA->RisingEdge()) {
-		turret->ToggleShooterEnabled();
-	}
-
-	// Enable/Disable Soft Limits
-	if (oi->DR11->RisingEdge()) {
-		turret->GetTurretRotation().EnableTurretSoftLimits();
-	} else if (oi->DR16->RisingEdge()) {
-		turret->GetTurretRotation().DisableTurretSoftLimits();
-	}
-	
-	// TODO: Fixme to track state
-	const bool gamepadLTPressed = oi->GetGamepadLT() > 0.05;
-	const bool gamepadRTPressed = oi->GetGamepadRT() > 0.05;
-	double turretSpeed = 0.0;
-	if (gamepadLTPressed) {
-		turretSpeed = oi->GetGamepadLT();
-		turret->GetTurretRotation().SetOpenLoopTurretSpeed(turretSpeed);
-	} else if (gamepadRTPressed) {
-		turretSpeed = oi->GetGamepadRT();
-		turret->GetTurretRotation().SetOpenLoopTurretSpeed(-turretSpeed);
-	} else {
-		turret->GetTurretRotation().OpenLoopHaltTurret();
-	}
-
-	// Must be below open loop turret
-	if (!startButtonPressed) {
-		if (dPad == OI::DPad::kUp) {
-			shortShotPose->Run();
-		} else if (dPad == OI::DPad::kDown) {
-			longShotPose->Run();
-		} else if (dPad == OI::DPad::kLeft) {
-			mediumShotPose->Run();
-		} else if (dPad == OI::DPad::kRight) {
-			trenchShotPose->Run();
-		}
-	}
-	
-
-	/**********************************************************
-	 * FeederArm  Control
-	**********************************************************/
-	if (oi->DR1->Pressed()) {
-		feederArm->StartIntake();
-	} else if (oi->DR2->Pressed()) {
-		feederArm->StartIntake(true);	// reversed
-	} else if (fabs(oi->GetGamepadRightStick()) > 0.25) {
-		feederArm->StartIntakeForColorSpin(oi->GetGamepadRightStick());
-	} else {
-		feederArm-> StopIntake();
-	}
-
-
-	if (oi->DL3->RisingEdge()){
-		turret->PreloadBall();
-	} else if (oi->DL1->Pressed()) {
-		turret->StartFeeder();
-	} else if (oi->DR5->Pressed()) {
-		turret->StartFeeder(true);
-	} else {
-		turret->StopFeeder();
-	}
-	
-	if (oi->GPB->RisingEdge()) {
-		feederArm->SetArmPosition(FeederArm::Position::kDown);
-	} 
-	else if (oi->GPY->RisingEdge()) {
-		if (turret->GetCurrentShootingProfile() == ShootingProfile::kShort) {
-			mediumShotPose->Run(false);
-		}
-		feederArm->SetArmPosition(FeederArm::Position::kVertical);
-		// driver request always turn off shooter
-		turret->SetShooterEnabled(false);
-	} 
-	else if (oi->GPX->RisingEdge()) {
-		if (turret->GetCurrentShootingProfile() == ShootingProfile::kShort) {
-			feederArm->SetArmPosition(FeederArm::Position::kShortShot);
-		} else {
-			feederArm->SetArmPosition(FeederArm::Position::kPlayerStation);
-		}		
-	} else if (oi->GPRB->RisingEdge()) {
-		feederArm->RunArm(0.0);
-		// feederArm->SetArmPosition(FeederArm::Position::kZero);	// TODO Remove preload bool, just a reminder of previous func
-	} else if (oi->GPLB->RisingEdge()) {
-		turret->PreloadBall();
-	}
-
-	if (oi->DL16->Pressed()) {
-		turret->SetFeederAndShooterReversed(true);
-	} else {
-		turret->SetFeederAndShooterReversed(false);
-	}
-
-	if (oi->DL11->Pressed()) {
-		controlPanelSystem->SetMode(ControlPanelSystem::Mode::kNone);
-	}
-	else if (oi->DL12->RisingEdge())
-	{
-		feederArm->RunArm(0.0);
-		controlPanelSystem->SetMode(ControlPanelSystem::Mode::kRotateWheel);
-	} else if (oi->DL13->RisingEdge())
-	{
-		feederArm->RunArm(0.0);
-		controlPanelSystem->SetMode(ControlPanelSystem::Mode::kRotateToColor);
-	}
-
-	/**********************************************************
-	 * Climber Arms
-	**********************************************************/
-	
-	if (startButtonPressed) {
-		if (dPad == OI::DPad::kUp) {
-			// shortShotPose->Run(false);		FIXME: temp
-			feederArm->ExtendClimberArms();
-		}
-		if (dPad == OI::DPad::kDown) {
-			feederArm->RetractClimberArms();
-		}
-/*
-		double armDir = oi->GetGamepadLeftStick();
-		if (fabs(armDir) > 0.05) {
-			double armSetpoint = feederArm->GetCurrentSetPoint();
-			double increase = std::copysign(100, armDir);
-			feederArm->DebugSetPoint(armSetpoint + increase);
-		}
-		*/
-	}
-
 
 	/**********************************************************
 	 * Testing and Diagnostics
@@ -314,33 +140,17 @@ void Robot::TeleopPeriodic() {
 
 void Robot::InitSubsystems() {
     std::cout << "Robot::InitSubsystems =>\n";
-	visionSystem->Init();
-	turret->Init();
-	feederArm->Init();
-	controlPanelSystem->Init();
 	// status & dms currently don't have init
 	std::cout << "Robot::InitSubsystems <=\n";
 }
 
 void Robot::RunSubsystems() {
 	// std::cout << "RunSubsystems() =>\n";
-    	double start = frc::Timer::GetFPGATimestamp();
-		// double t1 = start;
+	double start = frc::Timer::GetFPGATimestamp();
+	// double t1 = start;
     dmsProcessManager->Run();
-		// double t2 = frc::Timer::GetFPGATimestamp();
-		// std::cout << "Time DMS   : " << fabs(t2 - t1) << "\n";
-	visionSystem->Run(); 
-		// t1 = frc::Timer::GetFPGATimestamp();
-		// std::cout << "Time Vision: " << fabs(t2 - t1) << "\n";
-	turret->Run();
-		// t2 = frc::Timer::GetFPGATimestamp();
-		// std::cout << "Time Turret: " << fabs(t2 - t1) << "\n";
-	feederArm->Run();
-		// t2 = frc::Timer::GetFPGATimestamp();
-		// std::cout << "Time Feeder: " << fabs(t2 - t1) << "\n";
-	controlPanelSystem->Run();
-		// t2 = frc::Timer::GetFPGATimestamp();
-		// std::cout << "Time ColorW: " << fabs(t2 - t1) << "\n";
+	// double t2 = frc::Timer::GetFPGATimestamp();
+	// std::cout << "Time DMS   : " << fabs(t2 - t1) << "\n";
 	double now = frc::Timer::GetFPGATimestamp();
 	SmartDashboard::PutNumber("Subsystem Times", (now-start) * 1000);
 	// std::cout << "RunSubsystems() <=\n";
@@ -348,29 +158,13 @@ void Robot::RunSubsystems() {
 
 void Robot::InstrumentSubsystems() {
 	autoManager->Instrument();
-	frc::SmartDashboard::PutNumber("ArmPos", RobotMap::armMotor->GetSelectedSensorPosition());
 	if (true || runInstrumentation) {
 		RobotMap::gyro->Instrument();
 		driveBase->Instrument();
-		visionSystem->Instrument();
-		turret->Instrument();
-		feederArm->Instrument();
-		controlPanelSystem->Instrument();
 	}
 }
 
 void Robot::HandleGlobalInputs() {
-	if (oi->DR9->RisingEdge()) {
-		visionSystem->ToggleCameraMode();
-	}
-	if (oi->DR7->RisingEdge()) {
-		visionSystem->GetLimelight()->SetStreamMode(Limelight::StreamMode::LimelightMain);
-	} else if (oi->DR8->RisingEdge()) {
-		visionSystem->GetLimelight()->SetStreamMode(Limelight::StreamMode::USBMain);
-	} else if (oi->DR10->RisingEdge()) {
-		visionSystem->GetLimelight()->SetStreamMode(Limelight::StreamMode::SideBySide);
-	}
-
 	// Only run instrumentation when button is pressed to avoid
 	// network latency overhead
 	runInstrumentation = oi->DL7->Pressed();
