@@ -79,7 +79,7 @@ void DebugAutoStrategy::Init(std::shared_ptr<World> world) {
 	steps.push_back(new DriveToDistance(angle, speed, -90_in, 30_in));
 	steps.push_back(new DriveToDistance(angle, speed, 174_in, 90_in));
 	steps.push_back(new DriveToDistance(angle, speed, -174_in, 60_in));
-	steps.push_back(new DriveToDistance(angle, speed, -174_in, 30_in));
+	steps.push_back(new DriveToDistance(angle, speed, 174_in, 30_in));
 	steps.push_back(new DriveToDistance(angle, speed, 0_in, 60_in));
 	steps.push_back(new DriveToDistance(angle, speed, -174_in, 60_in));
 	steps.push_back(new DriveToDistance(angle, speed, 90_in, 30_in));
