@@ -106,6 +106,21 @@ void Robot::TeleopPeriodic() {
 		driveBase->SetTargetAngle(0.0);
 		twistInput = driveBase->GetTwistControlOutput();
 	}
+	else if( oi->DL3-> Pressed()) {
+		driveBase->SetTargetAngle(-90.0);
+		twistInput = driveBase->GetTwistControlOutput();
+		
+	}
+
+	else if( oi->DL4->Pressed()) {
+		driveBase->SetTargetAngle(90.0);
+		twistInput = driveBase->GetTwistControlOutput();
+	}
+
+	
+
+
+
 	if (dmsMode) {
 		// DriveBase input handled via DMS->Run()
 	} else {
@@ -113,6 +128,19 @@ void Robot::TeleopPeriodic() {
 			double yMove = -oi->GetJoystickY(threshold);
 			double xMove = oi->GetJoystickX();
 			bool useGyro = true;
+
+			if ( oi->DL1->Pressed()) {
+				double x = abs(xMove);
+				double y = abs(yMove);
+
+				if( x < y) {
+					xMove = 0;
+				}
+				else {
+					yMove = 0;
+				}
+			}
+	
 			if (oi->DR4->Pressed()) {
 				// robot centric
 				// xMove = std::copysign(xMove*xMove, xMove);
