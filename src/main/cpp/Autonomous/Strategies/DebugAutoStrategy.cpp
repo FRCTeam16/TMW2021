@@ -74,8 +74,18 @@ void DebugAutoStrategy::Init(std::shared_ptr<World> world) {
 	const double speed = 0.50;
 	const double angle = 0.0;
 	// steps.push_back(new OpenDriveToDistance(angle, 0.5, 0.0, 40.7, 1, 0.3));
-	// steps.push_back(new DriveToDistance(angle, speed, 0_in, 40.7_in));
-	steps.push_back(new DriveToDistance(angle, speed, -62_in, 36_in));
+	steps.push_back(new DriveToDistance(angle, speed, 0_in, 40.7_in));
+
+	steps.push_back(new DriveToDistance(angle, speed, -90_in, 30_in));
+	steps.push_back(new DriveToDistance(angle, speed, 174_in, 90_in));
+	steps.push_back(new DriveToDistance(angle, speed, -174_in, 60_in));
+	steps.push_back(new DriveToDistance(angle, speed, 174_in, 30_in));
+	steps.push_back(new DriveToDistance(angle, speed, 0_in, 60_in));
+	steps.push_back(new DriveToDistance(angle, speed, -174_in, 60_in));
+	steps.push_back(new DriveToDistance(angle, speed, 90_in, 30_in));
+
+	steps.push_back(new DriveToDistance(angle, speed, 0_in, 40.7_in));
+
 }
 
 void DebugAutoStrategy::DebugSimple() {

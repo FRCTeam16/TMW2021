@@ -23,7 +23,7 @@ double FrontTwoAveragingDriveEncoderPIDSource::PIDGet() {
 	DriveInfo<bool> motorEnabled {true};
 
 	error.FL = fabs(wheels.FL->GetDriveEncoderPosition() - initialEncoderValue.FL);
-	error.FR = fabs(wheels.FR->GetDriveEncoderPosition() - initialEncoderValue.FR);
+	error.RR = fabs(wheels.RR->GetDriveEncoderPosition() - initialEncoderValue.FR);
 
 	SmartDashboard::PutNumber("FLEncoderTravel", error.FL);
 	SmartDashboard::PutNumber("FREncoderTravel", error.FR);
@@ -32,7 +32,7 @@ double FrontTwoAveragingDriveEncoderPIDSource::PIDGet() {
 
 	if (showDebug) {
 		std::cout << "AvgDrivePID error.FL " << error.FL << "\n";
-		std::cout << "AvgDrivePID error.FR " << error.FR << "\n";
+		std::cout << "AvgDrivePID error.FR " << error.RR << "\n";
 	}
 
 	// Calculate initial working average
