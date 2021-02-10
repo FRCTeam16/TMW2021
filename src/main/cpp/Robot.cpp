@@ -57,7 +57,6 @@ void Robot::AutonomousInit() {
 	world.reset(new World());
 	autoManager->Init(world);
 	InitSubsystems();
-	feederArm->InitAuto();
 	driveBase->InitAuto();
 }
 void Robot::AutonomousPeriodic() {
@@ -130,8 +129,9 @@ void Robot::TeleopPeriodic() {
 			bool useGyro = true;
 
 			if ( oi->DL1->Pressed()) {
-				double x = abs(xMove);
-				double y = abs(yMove);
+				double x = fabs(xMove);
+				double y = fabs(yMove);
+				
 
 				if( x < y) {
 					xMove = 0;
