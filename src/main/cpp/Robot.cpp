@@ -39,6 +39,8 @@ void Robot::RobotInit() {
 	std::cout << "- after zeroyaw\n";
 	// wpi::PortForwarder::GetInstance().Add(5801, "10.0.16.11", 5801);
 
+	SmartDashboard::PutBoolean("Slalom90", false);
+
 	std::cout << "Robot::RobotInit <=\n";
 }
 
@@ -194,6 +196,8 @@ void Robot::InstrumentSubsystems() {
 		RobotMap::gyro->Instrument();
 		driveBase->Instrument();
 	}
+
+	SmartDashboard::GetBoolean("Slalom90", false);
 }
 
 void Robot::HandleGlobalInputs() {
