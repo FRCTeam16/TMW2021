@@ -6,10 +6,10 @@
 #include "Robot.h"
 
 #include "Autonomous/Strategies/DebugAutoStrategy.h"
-#include "Autonomous/Strategies/2020/GoalSideSweepStrategy.h"
-#include "Autonomous/Strategies/2020/SnatchAndScoot.h"
 #include "Autonomous/Strategies/2021/SlalomAutoStrategy.h"
-
+#include "Autonomous/Strategies/2021/BarrelRaceAutoStrategy.h"
+#include "Autonomous/Strategies/2021/BounceAutoStrategy.h"
+#include "Autonomous/Strategies/2021/GalacticSearchAutoStrategy.h"
 
 AutoManager::AutoManager() :
 		positions(new frc::SendableChooser<int>()),
@@ -18,6 +18,9 @@ AutoManager::AutoManager() :
 	strategies->AddOption("0 - None", AutoStrategy::kNone);
 	strategies->AddOption("99 - Debug Auto Strategy", AutoStrategy::kDebug);
 	strategies->AddOption("1 - Slalom Drive",AutoStrategy::kSlalom);
+	strategies->AddOption("2 - Barrel Race", AutoStrategy::kBarrelRace);
+	strategies->AddOption("3 - Bounce", AutoStrategy::kBounce);
+	strategies->AddOption("4 - Galactic Search", AutoStrategy::kGalacticSearch);
 
 	positions->SetDefaultOption("2 - Right", AutoStartPosition::kRight);
 	// positions->AddOption("1 - Center", AutoStartPosition::kCenter);
@@ -47,11 +50,22 @@ std::unique_ptr<Strategy> AutoManager::CreateStrategy(const AutoStrategy &key, s
 		strategy = new DebugAutoStrategy(world);
 		break;
 	case kSlalom: 
-	     std::cout << "AUTOMAN: Selected Slalom Drive \n";
+	     std::cout << "AUTOMAN: Selected Slalom \n";
 		 strategy = new SlalomAutoStrategy(world);
 		 break;
+	case kBarrelRace: 
+	     std::cout << "AUTOMAN: Selected Barrel Race \n";
+		 strategy = new BarrelRaceAutoStrategy(world);
+		 break;
+	case kBounce: 
+	     std::cout << "AUTOMAN: Selected Bounce \n";
+		 strategy = new BounceAutoStrategy(world);
+		 break;
+	case kGalacticSearch: 
+	     std::cout << "AUTOMAN: Selected Galactic Search \n";
+		 strategy = new GalacticSearchAutoStrategy(world);
+		 break;
 	default:
-		// TODO: Fill in sane default
 		std::cerr << "No valid strategy selected\n";
 	}
 	return std::unique_ptr<Strategy>(strategy);
@@ -73,7 +87,8 @@ void AutoManager::Init(std::shared_ptr<World> world) {
 		std::cerr << "NO AUTONOMOUS STRATEGY FOUND\n";
 	}
 
-	// Removed 2019 since we can run auto multiple times: RobotMap::gyro->ZeroYaw();
+	// Init the strategy so it can do any runtime setup,
+	// for example reading game state
 	currentStrategy->Init(world);
 
 	startTime = -1;
