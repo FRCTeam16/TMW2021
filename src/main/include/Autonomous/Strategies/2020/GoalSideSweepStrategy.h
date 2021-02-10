@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Autonomous/Strategy.h"
-#include <units/units.h>
 
 
 class GoalSideSweepStrategy : public StepStrategy {
