@@ -25,7 +25,7 @@ void SlalomAutoStrategy::Init(std::shared_ptr<World> world) {
 	steps.push_back(new OpenDriveToDistance(angle, 0.5, 0.0, 41.5, 1, 0.4));
     //steps.push_back(new DriveToDistance(angle, speed, 0_in, 42_in));
 	steps.push_back(new DriveToDistance(angle, speed, -75_in, 26_in));
-	steps.push_back(new DriveToDistance(angle, speed, 0_in, 162_in));
+	steps.push_back(new OpenDriveToDistance(angle, 0.7, 0.0, 162,1,0.4,81));
 	//steps.push_back(new OpenDriveToDistance(angle, 0.6, 0.0, 121, 2, 0.25, 30));
 	steps.push_back(new DriveToDistance(angle, speed, 75_in, 26_in));
 	steps.push_back(new DriveToDistance(angle, speed, 0_in, 60_in));
