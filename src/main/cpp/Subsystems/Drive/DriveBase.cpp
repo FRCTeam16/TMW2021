@@ -44,9 +44,9 @@ DriveBase::DriveBase() : Subsystem("DriveBase") {
 	InitializeOffsets();
 	std::cout << "  offsets initialized\n";
 
-    wheelbase.W = 20.5/2;
-    wheelbase.X = 23.0;
-    wheelbase.Y = 20.5/2;
+    wheelbase.W = 13.25/2;
+    wheelbase.X = 26.5;
+    wheelbase.Y = 13.25/2;
 
     // Initialize wheels
 	for (auto const& wheel : wheels) {

@@ -31,15 +31,15 @@
 
 
 RobotMap::RobotMap() {
-  driveBaseFrontLeftDrive.reset(new rev::CANSparkMax{1, rev::CANSparkMax::MotorType::kBrushless});
-  driveBaseFrontRightDrive.reset(new rev::CANSparkMax{3, rev::CANSparkMax::MotorType::kBrushless});
-  driveBaseRearLeftDrive.reset(new rev::CANSparkMax{5, rev::CANSparkMax::MotorType::kBrushless});
-  driveBaseRearRightDrive.reset(new rev::CANSparkMax{7, rev::CANSparkMax::MotorType::kBrushless});
+  driveBaseFrontLeftDrive.reset(new rev::CANSparkMax{7, rev::CANSparkMax::MotorType::kBrushless});
+  driveBaseFrontRightDrive.reset(new rev::CANSparkMax{5, rev::CANSparkMax::MotorType::kBrushless});
+  driveBaseRearLeftDrive.reset(new rev::CANSparkMax{3, rev::CANSparkMax::MotorType::kBrushless});
+  driveBaseRearRightDrive.reset(new rev::CANSparkMax{1, rev::CANSparkMax::MotorType::kBrushless});
 
-  driveBaseFrontLeftSteer.reset(new WPI_TalonSRX{2});
-  driveBaseFrontRightSteer.reset(new WPI_TalonSRX{4});
-  driveBaseRearLeftSteer.reset(new WPI_TalonSRX{6});
-  driveBaseRearRightSteer.reset(new WPI_TalonSRX{8});
+  driveBaseFrontLeftSteer.reset(new WPI_TalonSRX{8});
+  driveBaseFrontRightSteer.reset(new WPI_TalonSRX{6});
+  driveBaseRearLeftSteer.reset(new WPI_TalonSRX{4});
+  driveBaseRearRightSteer.reset(new WPI_TalonSRX{2});
 
   // auto concreteGyro = std::unique_ptr<PigeonBSGyro>(new PigeonBSGyro(intakeMotor.get()));
   auto concreteGyro = std::unique_ptr<NavXBSGyro>(new NavXBSGyro(frc::I2C::Port::kMXP));
