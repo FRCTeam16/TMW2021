@@ -19,7 +19,7 @@
   shared_ptr<rev::CANSparkMax> RobotMap::shooterMotorFollower;
   shared_ptr<rev::CANSparkMax> RobotMap::feederMotor;
 
-  shared_ptr<WPI_VictorSPX> RobotMap::intakeMotor;
+  shared_ptr<WPI_TalonSRX> RobotMap::intakeMotor;
   std::shared_ptr<BSGyro> RobotMap::gyro;
   
   std::shared_ptr<frc::Compressor> RobotMap::compressor;
@@ -47,6 +47,8 @@ RobotMap::RobotMap() {
 
   // compressor.reset(new frc::Compressor{0});
   // compressor->SetClosedLoopControl(true);
+
+  intakeMotor.reset(new WPI_TalonSRX{9});
 
   powerDistributionPanel.reset(new frc::PowerDistributionPanel{0});
 }

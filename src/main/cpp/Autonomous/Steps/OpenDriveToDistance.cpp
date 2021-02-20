@@ -49,8 +49,9 @@ bool OpenDriveToDistance::Run(std::shared_ptr<World> world) {
     }
 
     if (rampDownDist > 0) {
-        xSpd = RampUtil::RampDown(xSpeed, error, distance, rampDownDist);
-        ySpd = RampUtil::RampDown(ySpeed, error, distance, rampDownDist);
+        double minSpeed = (rampMinSpeed > -1) ? rampMinSpeed : 0.1;
+        xSpd = RampUtil::RampDown(xSpeed, error, distance, rampDownDist, minSpeed);
+        ySpd = RampUtil::RampDown(ySpeed, error, distance, rampDownDist, minSpeed);
     }
 
     const double twistOutput = Robot::driveBase->GetTwistControlOutput();
