@@ -44,9 +44,9 @@ DriveBase::DriveBase() : Subsystem("DriveBase") {
 	InitializeOffsets();
 	std::cout << "  offsets initialized\n";
 
-    wheelbase.W = 20.5/2;
-    wheelbase.X = 23.0;
-    wheelbase.Y = 20.5/2;
+    wheelbase.W = 13.25/2;
+    wheelbase.X = 26.5;
+    wheelbase.Y = 13.25/2;
 
     // Initialize wheels
 	for (auto const& wheel : wheels) {
@@ -58,11 +58,13 @@ DriveBase::DriveBase() : Subsystem("DriveBase") {
 }
 
 void DriveBase::InitializePIDs() {
+	std::cout << "==> DriveBase::InitializePIDs\n";
 	 // Initialize Drive Talons + PID feedback
 	BSPrefs *prefs = BSPrefs::GetInstance();
 	// const double izone = BSPrefs::GetInstance()->GetDouble("DriveControlTwistIZone", 0.0);
 
 	if (driveControlTwist == nullptr) {
+		std::cout << "Creating driveControlTwist\n";
 		driveControlTwist.reset(
 					new PIDController(
 						BSPrefs::GetInstance()->GetDouble("TwistP", 0.02),
@@ -84,10 +86,12 @@ void DriveBase::InitializePIDs() {
 
 	// Drive Motor PID	
 	for (auto const& wheel : wheels) {
+		std::cout << "Initializing Drive wheel\n";
 		wheel->InitializeDrivePID();
-	}
+	} 
 
 	// Drive PID Control
+	std::cout << "Configuring Drive PID Control\n";
 	const double driveControlP = prefs->GetDouble("DriveControlP", 0.0);
 	const double driveControlI = prefs->GetDouble("DriveControlI", 0.0);
 	const double driveControlD = prefs->GetDouble("DriveControlD", 0.0);
@@ -106,6 +110,7 @@ void DriveBase::InitializePIDs() {
 		driveControlDistanceSpeed.reset(new CrabSpeed());
 	}
 
+	std::cout << "Creating driveControlSpeedController\n";
 	if (driveControlSpeedController == nullptr) {
 		driveControlSpeedController.reset(
 				new PIDController(driveControlP, driveControlI, driveControlD, driveControlF,
@@ -118,6 +123,7 @@ void DriveBase::InitializePIDs() {
 		driveControlSpeedController->SetPID(driveControlP, driveControlI, driveControlD, driveControlF);
 //		driveControlSpeedController->SetIzone(driveControlIZone);
 	}
+	std::cout << "<== InitializePIDs\n";
 }
 
 void DriveBase::InitDefaultCommand() {

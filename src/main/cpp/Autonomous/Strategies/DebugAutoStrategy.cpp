@@ -28,7 +28,7 @@
 #include "Autonomous/Steps/2020/SetFeederArmPosition.h"
 #include "Autonomous/Steps/2020/SetTurretPosition.h"
 
-#include <units/units.h>
+#include <units/length.h>
 
 DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	// DebugSimple();
@@ -72,10 +72,12 @@ void DebugAutoStrategy::Init(std::shared_ptr<World> world) {
 	auto xmove = 62_in;
 	const int ymove = 180;
 	const double speed = 0.50;
-	const double angle = 0.0;
+	const double angle = -90.0;
 	// steps.push_back(new OpenDriveToDistance(angle, 0.5, 0.0, 40.7, 1, 0.3));
-	// steps.push_back(new DriveToDistance(angle, speed, 0_in, 40.7_in));
-	steps.push_back(new DriveToDistance(angle, speed, -62_in, 36_in));
+
+	
+
+
 }
 
 void DebugAutoStrategy::DebugSimple() {

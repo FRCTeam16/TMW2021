@@ -1,9 +1,5 @@
-
-
-#ifndef SRC_AUTONOMOUS_SLALOMAUTOSTRATEGY_H_
-#define SRC_AUTONOMOUS_SLALOMAUTOSTRATEGY_H_
-
-#include "../../Strategy.h";
+#pragma once
+#include "../../Strategy.h"
 
 
 class SlalomAutoStrategy : public StepStrategy {
@@ -14,5 +10,3 @@ public:
 
 private:
 };
-
-#endif /* SRC_AUTONOMOUS_SlalomAUTOSTRATEGY_H_ */
