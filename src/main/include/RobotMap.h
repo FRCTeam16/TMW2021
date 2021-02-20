@@ -1,6 +1,7 @@
 #pragma once
 
 #include <frc/Compressor.h>
+#include <frc/Encoder.h>
 #include <frc/Solenoid.h>
 #include <frc/PowerDistributionPanel.h>
 #include <ctre/Phoenix.h>
@@ -43,4 +44,8 @@ class RobotMap {
   static std::shared_ptr<frc::Solenoid> climberRightArm;
 
   static std::shared_ptr<frc::PowerDistributionPanel> powerDistributionPanel;
+  
+  static std::shared_ptr<frc::Encoder> driveEncoderX;
+  static std::shared_ptr<frc::Encoder> driveEncoderY;
+
 };

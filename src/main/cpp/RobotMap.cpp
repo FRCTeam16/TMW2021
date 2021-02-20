@@ -2,6 +2,10 @@
 #include "Gyro/PigeonBSGyro.h"
 #include "Gyro/NavXBSGyro.h"
 
+  std::shared_ptr<frc::Encoder> RobotMap::driveEncoderX;
+  std::shared_ptr<frc::Encoder> RobotMap::driveEncoderY;
+
+
   shared_ptr<rev::CANSparkMax> RobotMap::driveBaseFrontLeftDrive;
   shared_ptr<WPI_TalonSRX> RobotMap::driveBaseFrontLeftSteer;
   shared_ptr<rev::CANSparkMax> RobotMap::driveBaseFrontRightDrive;
@@ -49,4 +53,8 @@ RobotMap::RobotMap() {
   // compressor->SetClosedLoopControl(true);
 
   powerDistributionPanel.reset(new frc::PowerDistributionPanel{0});
+
+  driveEncoderX.reset(new frc::Encoder(1, 2, false));
+  driveEncoderY.reset(new frc::Encoder(5, 6, false));
+
 }
