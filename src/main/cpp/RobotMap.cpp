@@ -56,7 +56,7 @@ RobotMap::RobotMap() {
 
   powerDistributionPanel.reset(new frc::PowerDistributionPanel{0});
 
-  driveEncoderX.reset(new frc::Encoder(1, 2, false));
-  driveEncoderY.reset(new frc::Encoder(5, 6, false));
+  driveEncoderX.reset(new frc::Encoder(1, 2, true));
+  driveEncoderY.reset(new frc::Encoder(5, 6, true));
 
 }

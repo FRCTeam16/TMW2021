@@ -26,7 +26,8 @@ public:
         // circumference = 2PI * R in inches
         const double wheel_radius = 1.0;
         const double encoder_rate = 8192.0;
-        inch_t circumference = inch_t{ M_2_PI * wheel_radius };
+        
+        inch_t circumference = inch_t{ TWO_PI * wheel_radius };
         scalar_t inv_pulses_per_rotation { 1. / encoder_rate };
         inch_t dpp =  inv_pulses_per_rotation * circumference;
 
@@ -55,6 +56,7 @@ TODO: fix macro for custom velocity
     }
 */
 private:
+    constexpr static double TWO_PI = 2 * M_PI;
     std::shared_ptr<frc::Encoder> xEncoder;
     std::shared_ptr<frc::Encoder> yEncoder;
 };
