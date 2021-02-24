@@ -20,7 +20,7 @@
 #include "Subsystems/FeederArm/FeederArm.h"
 #include "Poses/ShotPoses.h"
 #include "Subsystems/Color/ControlPanelSystem.h"
-
+#include "Sensors/EncoderWheel.h"
 
 
 class Robot : public frc::TimedRobot {
@@ -46,6 +46,7 @@ class Robot : public frc::TimedRobot {
   static std::shared_ptr<Turret> turret;
   static std::shared_ptr<FeederArm> feederArm;
   static std::shared_ptr<ControlPanelSystem> controlPanelSystem;
+  static std::shared_ptr<EncoderWheel> encoderWheel;
 
 private:
   void InitSubsystems();

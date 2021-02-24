@@ -14,6 +14,7 @@ std::shared_ptr<VisionSystem> Robot::visionSystem;
 std::shared_ptr<Turret> Robot::turret;
 std::shared_ptr<FeederArm> Robot::feederArm;
 std::shared_ptr<ControlPanelSystem> Robot::controlPanelSystem;
+std::shared_ptr<EncoderWheel> Robot::encoderWheel;
 
 void Robot::RobotInit() {
 	std::cout << "Robot::RobotInit => \n";
@@ -40,6 +41,8 @@ void Robot::RobotInit() {
 	// wpi::PortForwarder::GetInstance().Add(5801, "10.0.16.11", 5801);
 
 	SmartDashboard::PutBoolean("Slalom90", false);
+
+	encoderWheel.reset(new EncoderWheel(RobotMap::driveEncoderX, RobotMap::driveEncoderY));
 
 	std::cout << "Robot::RobotInit <=\n";
 }
@@ -208,8 +211,9 @@ void Robot::InstrumentSubsystems() {
 	if (true || runInstrumentation) {
 		RobotMap::gyro->Instrument();
 		driveBase->Instrument();
+		SmartDashboard::PutNumber("XEnc", encoderWheel->GetX().to<double>());
+		SmartDashboard::PutNumber("YEnc", encoderWheel->GetY().to<double>());
 	}
-
 	SmartDashboard::GetBoolean("Slalom90", false);
 }
 
