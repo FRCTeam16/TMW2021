@@ -56,6 +56,7 @@ void VisionSystem::Run() {
         driveInfo->xOffset = scene.xOffset;
         driveInfo->inThreshold = fabs(scene.xOffset) <= xThreshold;
         driveInfo->targetArea = scene.targetArea;
+        driveInfo ->yOffset = scene.yOffset;
     }
     // std::cout 
     //     << "hasTarget? " << scene.hasTarget

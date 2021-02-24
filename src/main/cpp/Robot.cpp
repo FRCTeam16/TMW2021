@@ -93,6 +93,19 @@ void Robot::TeleopPeriodic() {
 	HandleGlobalInputs();
 
 	/**********************************************************
+	 * Driver Control
+	**********************************************************/
+	if  (  oi-> DR1 -> Pressed() ) {
+		 RobotMap :: intakeMotor -> Set(1.0);
+	}
+	else if ( oi->DR2 -> Pressed() ) {
+		RobotMap :: intakeMotor -> Set(-1.0);
+		
+	} else {
+		RobotMap :: intakeMotor -> Set(0.0);
+	}
+
+	/**********************************************************
 	 * Testing and Diagnostics
 	**********************************************************/
 	const bool dmsMode = oi->DL14->Pressed();
