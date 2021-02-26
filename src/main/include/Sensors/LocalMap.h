@@ -26,7 +26,7 @@ public:
         double diffy = cury - field_y;
 
         double absyaw = fabs(yaw);
-        if (absyaw != 0 && absyaw != 90 && absyaw != 180)
+        if ((absyaw % 90) != 0)
         {
             double actual_x_diff = sin(yaw) * diffx;
             double acutal_y_diff = cos(yaw) * diffy;
@@ -34,13 +34,15 @@ public:
             field_x += actual_x_diff;
             field_y += acutal_y_diff
         } 
-        else if (fabs(yaw) == 90) {
-            
-        } else {
-            field_x = curx;
-            field_y = cury;
+        else if (fabs(yaw) == 90) 
+        {
+            field_x += diffy;
+            field_y += diffx;  
+        } else if (fabs(yaw) == 180)
+        {
+            field_x -= diffx;
+            field_y -= diffy;
         }
-        
     }
     
 
