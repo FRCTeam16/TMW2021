@@ -34,14 +34,17 @@ public:
             field_x += actual_x_diff;
             field_y += acutal_y_diff
         } 
-        else if (fabs(yaw) == 90) 
+        else if (absyaw == 90) 
         {
             field_x += diffy;
             field_y += diffx;  
-        } else if (fabs(yaw) == 180)
+        } 
+        else
         {
-            field_x -= diffx;
-            field_y -= diffy;
+            // we are at 0 or +/- 180
+            int mul = (yaw == -180) ? -1 : 1;
+            field_x += (mul * diffx);
+            field_y += (mul * diffy);
         }
     }
     
