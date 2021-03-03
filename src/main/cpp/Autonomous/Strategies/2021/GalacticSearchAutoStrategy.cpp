@@ -3,6 +3,8 @@
 #include "Autonomous/Steps/OpenDriveToDistance.h"
 #include "Autonomous/Steps/SetGyroOffset.h"	
 #include "Autonomous/Steps/2021/DetermineGalacticSearchPathStep.h"
+#include "Robot.h"
+#include "Autonomous/World.h"
 
 
 GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> world) {
@@ -17,6 +19,16 @@ void GalacticSearchAutoStrategy::Init(std::shared_ptr<World> world) {
 
 GalacticSearchAutoStrategy::DetectedPath GalacticSearchAutoStrategy::DetectPath() { return kUnknown; }
 void GalacticSearchAutoStrategy::RedA() {
+/*
+	auto timer = world->GetClock();
+	double starttime = -1;
+
+	if(starttime < 0) {
+		starttime = timer;
+		RobotMap :: intakeMotor -> (-1.0);
+	}
+
+	*/
 
 	steps.push_back(new OpenDriveToDistance(0.0, 0.5,0,60,1,0.4 ));
 	steps.push_back(new DriveToDistance(0,0.5,30_in,60_in));

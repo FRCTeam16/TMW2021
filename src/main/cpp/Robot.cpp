@@ -28,6 +28,8 @@ void Robot::RobotInit() {
 	oi.reset(new OI());
     driveBase.reset(new DriveBase());
 	std::cout << "Robot::RobotInit after driveBase\n";
+	visionSystem.reset(new VisionSystem());
+
     //statusReporter->Launch();
     dmsProcessManager.reset(new DmsProcessManager(statusReporter));
 
@@ -43,6 +45,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutBoolean("Slalom90", false);
 
 	encoderWheel.reset(new EncoderWheel(RobotMap::driveEncoderX, RobotMap::driveEncoderY));
+	SmartDashboard::PutString("GalacticSearch", "Unknown");
 
 	std::cout << "Robot::RobotInit <=\n";
 }
@@ -60,6 +63,7 @@ void Robot::AutonomousInit() {
 	cout << "AutonomousInit\n";
 	RobotMap::gyro->ZeroYaw();
 	world.reset(new World());
+	visionSystem->Run();	//hack
 	autoManager->Init(world);
 	InitSubsystems();
 	driveBase->InitAuto();
@@ -191,12 +195,14 @@ void Robot::TeleopPeriodic() {
 void Robot::InitSubsystems() {
     std::cout << "Robot::InitSubsystems =>\n";
 	// status & dms currently don't have init
+	visionSystem->Init();
 	std::cout << "Robot::InitSubsystems <=\n";
 }
 
 void Robot::RunSubsystems() {
 	// std::cout << "RunSubsystems() =>\n";
 	double start = frc::Timer::GetFPGATimestamp();
+	visionSystem->Run();
 	// double t1 = start;
     //dmsProcessManager->Run();
 	// double t2 = frc::Timer::GetFPGATimestamp();
