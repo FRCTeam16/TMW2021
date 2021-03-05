@@ -43,7 +43,7 @@ void StatusReporter::Run() {
 
 	while (running) {
 		try {
-			SendData();
+			//SendData();
 		} catch(...) {
 			std::cout << "StatusReporter exited\n";
 			return;

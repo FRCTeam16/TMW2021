@@ -30,7 +30,8 @@ void Robot::RobotInit() {
 	std::cout << "Robot::RobotInit after driveBase\n";
 	visionSystem.reset(new VisionSystem());
 
-    //statusReporter->Launch();
+	statusReporter.reset(new StatusReporter());
+    statusReporter->Launch();
     dmsProcessManager.reset(new DmsProcessManager(statusReporter));
 
 	std::cout << "- before automgr\n";
@@ -113,7 +114,7 @@ void Robot::TeleopPeriodic() {
 	 * Testing and Diagnostics
 	**********************************************************/
 	const bool dmsMode = oi->DL14->Pressed();
-	//dmsProcessManager->SetRunning(dmsMode);
+	dmsProcessManager->SetRunning(dmsMode);
 
 	
 	/**********************************************************
@@ -204,7 +205,7 @@ void Robot::RunSubsystems() {
 	double start = frc::Timer::GetFPGATimestamp();
 	visionSystem->Run();
 	// double t1 = start;
-    //dmsProcessManager->Run();
+    dmsProcessManager->Run();
 	// double t2 = frc::Timer::GetFPGATimestamp();
 	// std::cout << "Time DMS   : " << fabs(t2 - t1) << "\n";
 	double now = frc::Timer::GetFPGATimestamp();
