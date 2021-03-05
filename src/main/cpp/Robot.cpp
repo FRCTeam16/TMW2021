@@ -15,6 +15,7 @@ std::shared_ptr<Turret> Robot::turret;
 std::shared_ptr<FeederArm> Robot::feederArm;
 std::shared_ptr<ControlPanelSystem> Robot::controlPanelSystem;
 std::shared_ptr<EncoderWheel> Robot::encoderWheel;
+std::unique_ptr<LocalMap> Robot::localMap;
 
 void Robot::RobotInit() {
 	std::cout << "Robot::RobotInit => \n";
@@ -43,6 +44,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutBoolean("Slalom90", false);
 
 	encoderWheel.reset(new EncoderWheel(RobotMap::driveEncoderX, RobotMap::driveEncoderY));
+	localMap.reset(new LocalMap(encoderWheel));
 
 	std::cout << "Robot::RobotInit <=\n";
 }
