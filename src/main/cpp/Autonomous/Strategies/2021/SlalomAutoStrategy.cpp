@@ -25,16 +25,17 @@ void SlalomAutoStrategy::Init(std::shared_ptr<World> world) {
 	steps.push_back(new OpenDriveToDistance(angle, 0.5, 0.0, 41.5, 1, 0.4));
     //steps.push_back(new DriveToDistance(angle, speed, 0_in, 42_in));
 	steps.push_back(new DriveToDistance(angle, speed, -75_in, 26_in));
-	auto rdStep = new OpenDriveToDistance(angle, 0.7, 0.0, 162,1,0.4,81);
+	auto rdStep = new OpenDriveToDistance(angle, 0.7, 0.0, 174,1,0.4);
 	rdStep->SetRampMinSpeed(0.5);
 	steps.push_back(rdStep);
 	//steps.push_back(new OpenDriveToDistance(angle, 0.6, 0.0, 121, 2, 0.25, 30));
-	steps.push_back(new DriveToDistance(angle, speed, 75_in, 26_in));
-	steps.push_back(new DriveToDistance(angle, speed, 0_in, 60_in));
-	steps.push_back(new DriveToDistance(angle, speed, -65_in, 0_in));
-	steps.push_back(new DriveToDistance(angle, speed, 0_in, -67_in));
-	steps.push_back(new DriveToDistance(angle, speed, 65_in, 0_in));
-	steps.push_back(new DriveToDistance(angle, speed, 0_in, -195_in));
+	steps.push_back(new DriveToDistance(angle, speed, 79_in, 22_in));
+	steps.push_back(new DriveToDistance(angle, speed, 0_in, 69_in));
+	steps.push_back(new DriveToDistance(angle, speed, -50_in, 0_in));
+	steps.push_back(new DriveToDistance(angle, speed, 0_in, -40_in));
+	steps.push_back(new DriveToDistance(angle, speed, 75_in, -22_in));
+	//steps.push_back(new DriveToDistance(angle, speed, 69_in, 0_in));
+	steps.push_back(new OpenDriveToDistance(angle, -0.7, 0.0, 178.0 ,1,0.4));
 	steps.push_back(new DriveToDistance(angle, speed, -71_in, 0_in));
 	steps.push_back(new DriveToDistance(angle, speed, 0_in, -60_in));
 
