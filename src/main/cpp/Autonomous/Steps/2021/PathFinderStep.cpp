@@ -41,7 +41,7 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
     // TODO: Error correction
 
     // Perform drive
-    Robot::driveBase->SetTargetAngle(currentTarget.angle);  // TODO: init only step pop
+    Robot::driveBase->SetTargetAngle(currentTarget.angle.to<double>());  // TODO: init only step pop
     const double twistOutput = Robot::driveBase->GetTwistControlOutput();
     crab->Update(
             (float) twistOutput,

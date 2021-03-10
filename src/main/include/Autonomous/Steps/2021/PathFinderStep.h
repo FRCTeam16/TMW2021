@@ -2,24 +2,30 @@
 
 #include "../../Step.h"
 #include <units/length.h>
+#include <units/angle.h>
 #include <queue>
+#include <deque>    
 
 using namespace units::length; 
+using namespace units::angle;
 using namespace std;
 
 
 class Target {
 public:
+    Target(inch_t xpos, inch_t ypos, double speed, degree_t robotAngle)
+        : xpos(xpos), ypos(ypos), speed(speed), angle(robotAngle) {}
     inch_t xpos;
     inch_t ypos;
     double speed;
-    double angle;
+    degree_t angle;
 };
 
 class PathFinderStep : Step
 {
 public:
-    PathFinderStep(queue<Target> _targets) : targets(_targets)
+    PathFinderStep(initializer_list<Target> list)
+    : targets(std::deque<Target>(list.begin(), list.end()))
     {
     }
 
@@ -28,6 +34,6 @@ public:
 private:
     bool started = false;
     queue<Target> targets;
-    Target currentTarget;
+    Target currentTarget {0_ft, 0_ft, 0, 0_deg};
     inch_t distance_threshold = 3.0_in;
 };
