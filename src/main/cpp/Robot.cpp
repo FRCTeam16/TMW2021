@@ -210,6 +210,7 @@ void Robot::RunSubsystems() {
     dmsProcessManager->Run();
 	// double t2 = frc::Timer::GetFPGATimestamp();
 	// std::cout << "Time DMS   : " << fabs(t2 - t1) << "\n";
+	localMap->UpdateFieldPosition();
 	double now = frc::Timer::GetFPGATimestamp();
 	SmartDashboard::PutNumber("Subsystem Times", (now-start) * 1000);
 	// std::cout << "RunSubsystems() <=\n";
@@ -222,6 +223,8 @@ void Robot::InstrumentSubsystems() {
 		driveBase->Instrument();
 		SmartDashboard::PutNumber("XEnc", encoderWheel->GetX().to<double>());
 		SmartDashboard::PutNumber("YEnc", encoderWheel->GetY().to<double>());
+		SmartDashboard::PutNumber("MapX", localMap->GetX().to<double>());
+		SmartDashboard::PutNumber("MapY", localMap->GetY().to<double>());
 	}
 	SmartDashboard::GetBoolean("Slalom90", false);
 }

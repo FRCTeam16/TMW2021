@@ -37,8 +37,9 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	// Measure();
 	std::cout << "--- DEBUG Autonomous ---\n";
 
-	Target(0_ft, 5_ft, 0.3, 0.0_deg);
-	auto step = new PathFinderStep({});
+	auto step = new PathFinderStep({
+		Target(0_ft, 5_ft, 0.3, 0.0_deg)
+	});
 }
 	
 
@@ -50,7 +51,6 @@ void DebugAutoStrategy::Init(std::shared_ptr<World> world) {
 	const double speed = 0.50;
 	const double angle = -90.0;
 	// steps.push_back(new OpenDriveToDistance(angle, 0.5, 0.0, 40.7, 1, 0.3));
-
 }
 
 void DebugAutoStrategy::DebugSimple() {
