@@ -15,6 +15,8 @@ std::shared_ptr<Turret> Robot::turret;
 std::shared_ptr<FeederArm> Robot::feederArm;
 std::shared_ptr<ControlPanelSystem> Robot::controlPanelSystem;
 std::shared_ptr<EncoderWheel> Robot::encoderWheel;
+std::shared_ptr<IntakeArm> Robot::intakeArm;
+
 
 void Robot::RobotInit() {
 	std::cout << "Robot::RobotInit => \n";
@@ -29,6 +31,7 @@ void Robot::RobotInit() {
     driveBase.reset(new DriveBase());
 	std::cout << "Robot::RobotInit after driveBase\n";
 	visionSystem.reset(new VisionSystem());
+	intakeArm.reset(new IntakeArm());
 
 	statusReporter.reset(new StatusReporter());
     statusReporter->Launch();
@@ -100,14 +103,13 @@ void Robot::TeleopPeriodic() {
 	/**********************************************************
 	 * Driver Control
 	**********************************************************/
-	if  (  oi-> DR1 -> Pressed() ) {
-		 RobotMap :: intakeMotor -> Set(1.0);
+	if  (oi-> DR1->Pressed() ) {
+		intakeArm->EnableIntake();
 	}
 	else if ( oi->DR2 -> Pressed() ) {
-		RobotMap :: intakeMotor -> Set(-1.0);
-		
+		intakeArm->EnableIntake(true);		
 	} else {
-		RobotMap :: intakeMotor -> Set(0.0);
+		intakeArm->StopIntake();
 	}
 
 	/**********************************************************
@@ -205,6 +207,7 @@ void Robot::RunSubsystems() {
 	double start = frc::Timer::GetFPGATimestamp();
 	visionSystem->Run();
 	// double t1 = start;
+	intakeArm->Run();
     dmsProcessManager->Run();
 	// double t2 = frc::Timer::GetFPGATimestamp();
 	// std::cout << "Time DMS   : " << fabs(t2 - t1) << "\n";
