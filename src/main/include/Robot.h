@@ -23,6 +23,9 @@
 #include "Sensors/EncoderWheel.h"
 #include "Subsystems/2021/IntakeArm.h"
 
+#include "Sensors/EncoderWheel.h"
+#include "Sensors/LocalMap.h"
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -49,6 +52,8 @@ class Robot : public frc::TimedRobot {
   static std::shared_ptr<ControlPanelSystem> controlPanelSystem;
   static std::shared_ptr<EncoderWheel> encoderWheel;
   static std::shared_ptr<IntakeArm> intakeArm;
+  static std::unique_ptr<LocalMap> localMap;
+
 
 private:
   void InitSubsystems();

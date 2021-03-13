@@ -7,6 +7,10 @@
 
 #include "Util/BSPrefs.h"
 
+
+#define M_PI		3.14159265358979323846	/* pi */
+
+
 using namespace units::length; 
 using namespace units::dimensionless;
 using namespace units::velocity;
@@ -25,16 +29,15 @@ public:
         // DPP: 1/pulses_per_rot * circumference
         // circumference = 2PI * R in inches
         const double wheel_radius = 1.0;
-        const double encoder_rate = 8192.0;
-        
         inch_t circumference = inch_t{ TWO_PI * wheel_radius };
+        const double encoder_rate = 2048.0;
+
         scalar_t inv_pulses_per_rotation { 1. / encoder_rate };
         inch_t dpp =  inv_pulses_per_rotation * circumference;
-
         auto prefs = BSPrefs::GetInstance();
 
         xEncoder->SetDistancePerPulse(prefs->GetDouble("DriveEncoder.X.DPP", dpp.to<double>()));
-        yEncoder->SetDistancePerPulse(prefs->GetDouble("DriveEncoder.Y.DPP", dpp.to<double>()));
+        yEncoder->SetDistancePerPulse(prefs->GetDouble("DriveEncoder.Y.DPP", dpp.to<double>()));        
     }
 
     inch_t GetX() const {
@@ -43,6 +46,11 @@ public:
 
     inch_t GetY() const {
         return inch_t{yEncoder->GetDistance()};
+    }
+
+    void Zero() {
+        xEncoder->Reset();
+        yEncoder->Reset();
     }
 
 /*

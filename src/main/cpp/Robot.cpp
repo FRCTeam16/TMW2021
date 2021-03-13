@@ -16,7 +16,7 @@ std::shared_ptr<FeederArm> Robot::feederArm;
 std::shared_ptr<ControlPanelSystem> Robot::controlPanelSystem;
 std::shared_ptr<EncoderWheel> Robot::encoderWheel;
 std::shared_ptr<IntakeArm> Robot::intakeArm;
-
+std::unique_ptr<LocalMap> Robot::localMap;
 
 void Robot::RobotInit() {
 	std::cout << "Robot::RobotInit => \n";
@@ -49,6 +49,7 @@ void Robot::RobotInit() {
 	SmartDashboard::PutBoolean("Slalom90", false);
 
 	encoderWheel.reset(new EncoderWheel(RobotMap::driveEncoderX, RobotMap::driveEncoderY));
+	localMap.reset(new LocalMap(encoderWheel));
 	SmartDashboard::PutString("GalacticSearch", "Unknown");
 
 	std::cout << "Robot::RobotInit <=\n";
@@ -71,6 +72,7 @@ void Robot::AutonomousInit() {
 	autoManager->Init(world);
 	InitSubsystems();
 	driveBase->InitAuto();
+	localMap->Zero();
 }
 void Robot::AutonomousPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
@@ -82,6 +84,7 @@ void Robot::TeleopInit() {
 	InitSubsystems();
 	std::cout << "Robot::TelopInit => driveBase->Init";
 	driveBase->InitTeleop();
+	localMap->Zero();
     std::cout << "Robot::TeleopInit <=\n";
 }
 
@@ -211,6 +214,7 @@ void Robot::RunSubsystems() {
     dmsProcessManager->Run();
 	// double t2 = frc::Timer::GetFPGATimestamp();
 	// std::cout << "Time DMS   : " << fabs(t2 - t1) << "\n";
+	localMap->UpdateFieldPosition();
 	double now = frc::Timer::GetFPGATimestamp();
 	SmartDashboard::PutNumber("Subsystem Times", (now-start) * 1000);
 	// std::cout << "RunSubsystems() <=\n";
@@ -223,6 +227,8 @@ void Robot::InstrumentSubsystems() {
 		driveBase->Instrument();
 		SmartDashboard::PutNumber("XEnc", encoderWheel->GetX().to<double>());
 		SmartDashboard::PutNumber("YEnc", encoderWheel->GetY().to<double>());
+		SmartDashboard::PutNumber("MapX", localMap->GetX().to<double>());
+		SmartDashboard::PutNumber("MapY", localMap->GetY().to<double>());
 	}
 	SmartDashboard::GetBoolean("Slalom90", false);
 }
