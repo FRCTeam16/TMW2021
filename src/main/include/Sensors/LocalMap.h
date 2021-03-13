@@ -40,11 +40,13 @@ public:
              * x' = x cos(t) - y sin(t)
              * y' = x sin(t) + y cos(t)
              */
-            inch_t actual_x = (diffx * cos(theta)) - (diffy * sin(theta));
-            inch_t actual_y = (diffx * sin(theta)) - (diffy * cos(theta));
+            double x = diffx.to<double>();
+            double y = diffy.to<double>();
+            double actual_x = (x * cos(theta)) - (y * sin(theta));
+            double actual_y = (x * sin(theta)) + (y * cos(theta));
 
-            field_x += actual_x;
-            field_y += actual_y;
+            field_x += inch_t{actual_x};
+            field_y += inch_t{actual_y};
         }
     }
 
