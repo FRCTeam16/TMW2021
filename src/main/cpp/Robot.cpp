@@ -70,6 +70,7 @@ void Robot::AutonomousInit() {
 	autoManager->Init(world);
 	InitSubsystems();
 	driveBase->InitAuto();
+	localMap->Zero();
 }
 void Robot::AutonomousPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
@@ -81,6 +82,7 @@ void Robot::TeleopInit() {
 	InitSubsystems();
 	std::cout << "Robot::TelopInit => driveBase->Init";
 	driveBase->InitTeleop();
+	localMap->Zero();
     std::cout << "Robot::TeleopInit <=\n";
 }
 

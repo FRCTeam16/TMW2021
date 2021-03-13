@@ -4,14 +4,16 @@
 bool PathFinderStep::Run(std::shared_ptr<World> world)
 {
     // Check for end condition
-    if (targets.empty() == 0)
+    if (targets.empty() && finishedTarget)
     {
+        std::cout << "Pathfinder empty, exiting";
         return true;    // Finished with step
     }
 
     // Handle first run initialization
     // Move to constructor?
     if (!started) {
+        std::cout << "Pathfinder -> first time through\n";
         currentTarget = targets.front();
         targets.pop();
         started = true;
@@ -26,10 +28,16 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
     inch_t dY = currentTarget.ypos - curY;
     inch_t distanceToTarget = inch_t{ sqrt(pow(dX.to<double>(), 2) + pow(dY.to<double>(), 2)) };
 
+    std::cout << "Currnt: (" << curX << " | " << curY << ")\n";
+    std::cout << "Target: (" << currentTarget.xpos << " | " << currentTarget.ypos << ")\n";
+    std::cout << "Distance to target: " << distanceToTarget << "\n";
+
     // Check if we close enough to target to go to the next step
     if (distanceToTarget <= distance_threshold) {
+        std::cout << "PathFinderStep met threshold";
         currentTarget = targets.front();
         targets.pop();
+        finishedTarget = true;
         return false;   // pickup next target next scan
     }
 
@@ -48,5 +56,6 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
             (float) ySpeed,
             (float) xSpeed,
             true);
+    return false;
 
 }

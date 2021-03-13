@@ -21,18 +21,25 @@ public:
     degree_t angle;
 };
 
-class PathFinderStep : Step
+class PathFinderStep : public Step
 {
 public:
     PathFinderStep(initializer_list<Target> list)
-    : targets(std::deque<Target>(list.begin(), list.end()))
+    //: targets(std::deque<Target>(list.begin(), list.end()))
     {
+        std::cout << "PathFinderStep::PathFinderStep()";
+        for (auto t : list) {
+            targets.push(t);
+        }
+        auto target = targets.front();
+        std::cout << "Target: (" << target.xpos << ', ' << target.ypos << ")\n";
     }
 
     bool Run(std::shared_ptr<World> world) override;
 
 private:
     bool started = false;
+    bool finishedTarget = false;
     queue<Target> targets;
     Target currentTarget {0_ft, 0_ft, 0, 0_deg};
     inch_t distance_threshold = 3.0_in;

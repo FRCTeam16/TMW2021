@@ -40,6 +40,7 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	auto step = new PathFinderStep({
 		Target(0_ft, 5_ft, 0.3, 0.0_deg)
 	});
+	steps.push_back(step);
 }
 	
 
