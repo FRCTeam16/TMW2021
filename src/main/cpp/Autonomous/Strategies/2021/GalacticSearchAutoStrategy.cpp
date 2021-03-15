@@ -6,6 +6,8 @@
 #include "Robot.h"
 #include "Autonomous/World.h"
 
+#include "Autonomous/Steps/2021/ControlIntakeStep.h"
+
 
 GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> world) {
 	std::cout << "--- GalacticSearch Autonomous ---\n";
@@ -13,6 +15,7 @@ GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> wo
 
 void GalacticSearchAutoStrategy::Init(std::shared_ptr<World> world) {
 	std::cout << "GalacticSearchAutoStrategy::Init()\n";
+	steps.push_back(new ControlIntakeStep(true));
 	steps.push_back(new DetermineGalacticSearchPathStep(this));
 }
 
@@ -30,10 +33,11 @@ void GalacticSearchAutoStrategy::RedA() {
 
 	*/
 
-	steps.push_back(new OpenDriveToDistance(0.0, 0.5,0,60,1,0.4 ));
-	steps.push_back(new DriveToDistance(0,0.5,30_in,60_in));
-	steps.push_back(new DriveToDistance(-64.0,0.5,-60_in,30_in));
-	steps.push_back(new OpenDriveToDistance(0.0,0.7,0,150,2,0.25));
+	steps.push_back(new OpenDriveToDistance(0.0, 0.5, 0.15, 60,1,0.4 ));
+	steps.push_back(new DriveToDistance(0,0.5,35_in,90_in));
+	steps.push_back(new DriveToDistance(-64.0,0.5,-132_in,65_in));
+	steps.push_back(new OpenDriveToDistance(-64,0.7,0,150,1,0.4));
+
 
 }
 void GalacticSearchAutoStrategy::RedB() {
@@ -64,4 +68,8 @@ void GalacticSearchAutoStrategy::BlueB() {
 	steps.push_back(new DriveToDistance(0,0.5,-60_in,60_in));
 	steps.push_back(new OpenDriveToDistance(0.0,0.7,0,120,2,0.25));
 
+}
+
+void GalacticSearchAutoStrategy::StopPath() {
+	steps.push_back(new ControlIntakeStep(false));
 }

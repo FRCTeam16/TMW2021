@@ -24,8 +24,11 @@ public:
         auto x = visionInfo ->xOffset;
         auto y = visionInfo ->yOffset;
 
-        if(x <= -5 && x >= -35) {
-            if(x >= -14) {
+        //parent ->RedA();
+        //return true;
+
+        if(x <= 10 && x >= -30) {
+            if(x >= -10) {
                 parent ->RedA();
                 SmartDashboard::PutString("GalacticSearch", "RedA");
                 cout << "RedA\n"; 
@@ -39,14 +42,14 @@ public:
              
         else {
            
-            if (x < 10){
-                parent -> BlueA();
+            if (x > 10  && x <= 20){
+                parent -> BlueB();
                 SmartDashboard::PutString("GalacticSearch", "BlueA");
                 cout << "BlueA\n";
             }
 
             else {
-                parent -> BlueB();
+                parent -> BlueA();
                 SmartDashboard::PutString("GalacticSearch", "BlueB");
                 cout << "BlueB\n";
             }
@@ -54,8 +57,7 @@ public:
         
         
 
-
-        
+        parent->StopPath();
         return true;
     }
 

@@ -12,6 +12,7 @@ public:
     void RedB();
     void BlueA();
     void BlueB();
+    void StopPath();
 
 private:
     enum DetectedPath { kRedA, kRedB, kBlueA, kBlueB, kUnknown };

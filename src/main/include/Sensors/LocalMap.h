@@ -23,17 +23,17 @@ public:
     {
         // update map x,y
         double yaw = RobotMap::gyro->GetYaw();
-        double curx = encoderWheel->GetX().to<double>();
-        double cury = encoderWheel->GetY().to<double>();
+        double diffx = encoderWheel->GetX().to<double>() - curx;
+        double diffy = encoderWheel->GetY().to<double>() - cury;
+        curx = encoderWheel->GetY().to<double>();
+        cury = encoderWheel->GetY().to<double>();
         
         double theta = yaw * DEG_TO_RAD;
-        double diffx = curx - field_x;
-        double diffy = cury - field_y;
-
+        
         if (false) {
             // dumb ignoring angle
-            field_x += diffx;
-            field_y += diffy;
+            // field_x += diffx;
+            // field_y += diffy;
         } else {
             /**
              * t = difference between angles
@@ -45,8 +45,8 @@ public:
             double actual_x = (x * cos(theta)) - (y * sin(theta));
             double actual_y = (x * sin(theta)) + (y * cos(theta));
 
-            field_x += inch_t{actual_x};
-            field_y += inch_t{actual_y};
+            field_x = field_x + inch_t(actual_x);
+            field_y = field_y + inch_t(actual_y);
         }
     }
 
@@ -54,6 +54,8 @@ public:
         encoderWheel->Zero();
         field_y = inch_t{0.0};
         field_x = inch_t{0.0};
+        curx = 0.0;
+        cury = 0.0;
     }
     
 
@@ -62,6 +64,8 @@ private:
     std::shared_ptr<EncoderWheel> encoderWheel;
     inch_t field_y = inch_t{0.0};
     inch_t field_x = inch_t{0.0};
+    double curx = 0.0;
+    double cury = 0.0;
 
     bool AreSame(double a, double b, double epsilon = 0.01)
     {
