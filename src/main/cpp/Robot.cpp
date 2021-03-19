@@ -60,6 +60,8 @@ void Robot::DisabledInit() {
 
 void Robot::DisabledPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
+	localMap->UpdateFieldPosition();
+
 	InstrumentSubsystems();
 	HandleGlobalInputs();	
 }

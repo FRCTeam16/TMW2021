@@ -30,6 +30,7 @@ public:
         double diffy = encY - cury;
         curx = encX;
         cury = encY;
+
         
         double theta = -yaw * DEG_TO_RAD;
         

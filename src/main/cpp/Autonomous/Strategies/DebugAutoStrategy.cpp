@@ -47,6 +47,9 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	// 	Target(0_ft, 0_ft, speed, robot_yaw)
 	// });
 
+	
+	//steps.push_back(new SetGyroOffset(90.0));
+	
 	auto step = new PathFinderStep({
 		Target(0_ft, 5_ft, speed, robot_yaw),
 		Target(-5_ft, 5_ft, speed, robot_yaw),

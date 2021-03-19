@@ -24,7 +24,7 @@ class EncoderWheel
 public:
 
     EncoderWheel(std::shared_ptr<frc::Encoder> xenc, std::shared_ptr<frc::Encoder> yenc)
-        : xEncoder(yenc), yEncoder(xenc) // flipped
+        : xEncoder(xenc), yEncoder(yenc)
     {
         // DPP: 1/pulses_per_rot * circumference
         // circumference = 2PI * R in inches
