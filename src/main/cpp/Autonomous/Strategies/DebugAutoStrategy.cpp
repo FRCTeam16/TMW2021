@@ -37,9 +37,23 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	// Measure();
 	std::cout << "--- DEBUG Autonomous ---\n";
 
+	degree_t robot_yaw = -2.0_deg;
+	double speed = 0.2;
+	
+	// auto step = new PathFinderStep({
+	// 	Target(0_ft, 5_ft, speed, robot_yaw),
+	// 	Target(5_ft, 5_ft, speed, robot_yaw),
+	// 	Target(5_ft, 0_ft, speed, robot_yaw),
+	// 	Target(0_ft, 0_ft, speed, robot_yaw)
+	// });
+
 	auto step = new PathFinderStep({
-		Target(0_ft, 5_ft, 0.3, 0.0_deg)
+		Target(0_ft, 5_ft, speed, robot_yaw),
+		Target(-5_ft, 5_ft, speed, robot_yaw),
+		Target(-5_ft, 0_ft, speed, robot_yaw),
+		Target(0_ft, 0_ft, speed, robot_yaw)
 	});
+	steps.push_back(new Rotate(robot_yaw.to<double>()));
 	steps.push_back(step);
 }
 	

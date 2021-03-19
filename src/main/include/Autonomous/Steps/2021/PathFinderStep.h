@@ -42,5 +42,5 @@ private:
     bool finishedTarget = false;
     queue<Target> targets;
     Target currentTarget {0_ft, 0_ft, 0, 0_deg};
-    inch_t distance_threshold = 3.0_in;
+    inch_t distance_threshold = 1.0_in;
 };

@@ -35,9 +35,14 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
     // Check if we close enough to target to go to the next step
     if (distanceToTarget <= distance_threshold) {
         std::cout << "PathFinderStep met threshold";
-        currentTarget = targets.front();
-        targets.pop();
-        finishedTarget = true;
+
+        if (targets.empty()) {
+            finishedTarget = true;
+        } else {
+            currentTarget = targets.front();
+            targets.pop();
+            finishedTarget = false;
+        }
         return false;   // pickup next target next scan
     }
 
