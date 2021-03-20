@@ -5,6 +5,7 @@
 const std::string DriveUnit::PULSES_PER_INCH = "PulsesPerInch";
 
 double DriveUnit::ToPulses(double value, DriveUnit::Units unit) {
+	// Don't forget gear reduction for Neo encoders when calculating
 	const double pulsesPerInch = BSPrefs::GetInstance()->GetDouble(PULSES_PER_INCH, 0.5);
 	double converted = 0;
 	switch (unit) {

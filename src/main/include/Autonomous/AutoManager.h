@@ -18,6 +18,7 @@ private:
 	enum AutoStrategy {
 		kNone = 0,
 		kSlalom, kBarrelRace, kBounce, kGalacticSearch,
+		kPFBounce,
 		kDebug = 99
 	};
 

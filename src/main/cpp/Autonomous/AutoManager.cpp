@@ -11,6 +11,9 @@
 #include "Autonomous/Strategies/2021/BounceAutoStrategy.h"
 #include "Autonomous/Strategies/2021/GalacticSearchAutoStrategy.h"
 
+#include "Autonomous/Strategies/2021/PFBounceAutoStrategy.h"
+
+
 AutoManager::AutoManager() :
 		positions(new frc::SendableChooser<int>()),
 		strategies(new frc::SendableChooser<int>())
@@ -22,6 +25,8 @@ AutoManager::AutoManager() :
 	strategies->AddOption("3 - Bounce", AutoStrategy::kBounce);
 	strategies->AddOption("4 - Galactic Search", AutoStrategy::kGalacticSearch);
 
+	strategies->AddOption("5 - PF Bounce", AutoStrategy::kPFBounce);
+
 	positions->SetDefaultOption("2 - Right", AutoStartPosition::kRight);
 	// positions->AddOption("1 - Center", AutoStartPosition::kCenter);
 	positions->AddOption("0 - Left",  AutoStartPosition::kLeft);
@@ -29,6 +34,7 @@ AutoManager::AutoManager() :
 	frc::SmartDashboard::PutData("Auto Start Pos1", positions.get());
 	frc::SmartDashboard::PutData("Auto Strategy2", strategies.get());
 
+	SmartDashboard::PutNumber("StepStrategy Elapsed", 0.0);
 
 	std::cout << "AutoManager::AutoManager() finished\n";
 }
@@ -65,6 +71,11 @@ std::unique_ptr<Strategy> AutoManager::CreateStrategy(const AutoStrategy &key, s
 	     std::cout << "AUTOMAN: Selected Galactic Search \n";
 		 strategy = new GalacticSearchAutoStrategy(world);
 		 break;
+	case kPFBounce:
+		std::cout << "AUTOMAN: Selected PFBounce \n";
+		strategy = new PFBounceAutoStrategy(world);
+		break;
+
 	default:
 		std::cerr << "No valid strategy selected\n";
 	}

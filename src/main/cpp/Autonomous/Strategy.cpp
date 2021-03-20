@@ -21,6 +21,7 @@ StepStrategy::~StepStrategy() {
 }
 
 void StepStrategy::Init(std::shared_ptr<World> world) {
+	startTime = world->GetClock();
 }
 
 bool StepStrategy::Run(std::shared_ptr<World> world) {
@@ -28,6 +29,8 @@ bool StepStrategy::Run(std::shared_ptr<World> world) {
 		if (!finished) {
 			std::cout << "!!! StepStrategy -> Finished all auto steps !!!\n";
 			finished = true;
+			double elapsed = world->GetClock() - startTime;
+			SmartDashboard::PutNumber("StepStrategy Elapsed", elapsed);
 		}
 		RunDrives(STOP.get(), false);
 		return true;

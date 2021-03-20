@@ -4,7 +4,7 @@
 bool PathFinderStep::Run(std::shared_ptr<World> world)
 {
     // Check for end condition
-    if (targets.empty() && finishedTarget)
+    if (targets.empty() && finishedPath)
     {
         std::cout << "Pathfinder empty, exiting";
         return true;    // Finished with step
@@ -15,6 +15,7 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
     if (!started) {
         std::cout << "Pathfinder -> first time through\n";
         currentTarget = targets.front();
+        Robot::driveBase->SetTargetAngle(currentTarget.angle.to<double>()); 
         targets.pop();
         started = true;
     }
@@ -33,15 +34,16 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
     std::cout << "Distance to target: " << distanceToTarget << "\n";
 
     // Check if we close enough to target to go to the next step
-    if (distanceToTarget <= distance_threshold) {
+    if (distanceToTarget <= currentTarget.distance_threshold) {
         std::cout << "PathFinderStep met threshold";
 
         if (targets.empty()) {
-            finishedTarget = true;
+            finishedPath = true;
         } else {
             currentTarget = targets.front();
+            Robot::driveBase->SetTargetAngle(currentTarget.angle.to<double>()); 
             targets.pop();
-            finishedTarget = false;
+            finishedPath = false;
         }
         return false;   // pickup next target next scan
     }
@@ -54,7 +56,6 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
     // TODO: Error correction
 
     // Perform drive
-    Robot::driveBase->SetTargetAngle(currentTarget.angle.to<double>());  // TODO: init only step pop
     const double twistOutput = Robot::driveBase->GetTwistControlOutput();
     crab->Update(
             (float) twistOutput,

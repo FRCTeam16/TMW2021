@@ -26,5 +26,6 @@ protected:
 	const std::unique_ptr<CrabInfo> STOP { new CrabInfo() };
 private:
 	bool finished = false;
+	double startTime = -1;
 };
 

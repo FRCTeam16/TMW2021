@@ -13,12 +13,13 @@ using namespace std;
 
 class Target {
 public:
-    Target(inch_t xpos, inch_t ypos, double speed, degree_t robotAngle)
-        : xpos(xpos), ypos(ypos), speed(speed), angle(robotAngle) {}
+    Target(inch_t xpos, inch_t ypos, double speed, degree_t robotAngle, inch_t distance_threshold = 1.0_in)
+        : xpos(xpos), ypos(ypos), speed(speed), angle(robotAngle), distance_threshold(distance_threshold) {}
     inch_t xpos;
     inch_t ypos;
     double speed;
     degree_t angle;
+    inch_t distance_threshold;
 };
 
 class PathFinderStep : public Step
@@ -39,8 +40,7 @@ public:
 
 private:
     bool started = false;
-    bool finishedTarget = false;
+    bool finishedPath = false;
     queue<Target> targets;
-    Target currentTarget {0_ft, 0_ft, 0, 0_deg};
-    inch_t distance_threshold = 1.0_in;
+    Target currentTarget {0_ft, 0_ft, 0, 0_deg, 0_in};
 };
