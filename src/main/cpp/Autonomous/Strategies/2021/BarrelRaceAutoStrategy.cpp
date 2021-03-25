@@ -17,17 +17,25 @@ void BarrelRaceAutoStrategy::Init(std::shared_ptr<World> world) {
 
 	// Going around first point
 	steps.push_back(new DriveToDistance(angle,speed,50_in,0_in));
-	steps.push_back(new DriveToDistance(angle,speed,0_in,-45_in));
+	steps.push_back(new DriveToDistance(angle,speed,0_in,-50_in));
 	steps.push_back(new DriveToDistance(angle,speed,-50_in,0_in));
 
+	// Going around second point
+	steps.push_back(new DriveToDistance(angle,speed,-20_in,180_in)); 
+	steps.push_back(new DriveToDistance(angle,speed,-35_in,0_in));
+	steps.push_back(new DriveToDistance(angle,speed,0_in,-55_in));
+	steps.push_back(new DriveToDistance(angle,speed,50_in,0_in));
 
-	steps.push_back(new DriveToDistance(angle,speed,-60_in,150_in));
-	steps.push_back(new DriveToDistance(angle,speed,-35_in,0_in));
-	steps.push_back(new DriveToDistance(angle,speed,0_in,-40_in));
-	steps.push_back(new DriveToDistance(angle,speed,35_in,0_in));
-	steps.push_back(new DriveToDistance(angle,speed,90_in,90_in));
-	steps.push_back(new DriveToDistance(angle,speed,-35_in,0_in));
+	// Going around third point
+	steps.push_back(new DriveToDistance(angle,speed,65_in,90_in));
+	steps.push_back(new DriveToDistance(angle,speed,0_in, 40_in));
+	steps.push_back(new DriveToDistance(angle,speed,-55_in,0_in));
 	steps.push_back(new OpenDriveToDistance(angle,-0.7,0,240,1,0.4));
+
+
+	// Brake
+	steps.push_back(new DriveToDistance(angle, 0.3, 0_in, 5_in));
+	steps.push_back(new DriveToDistance(angle, 0.0, 0_in, 0_in)); 
 
   
 	//steps.push_back(new OpenDriveToDistance(angle, 0.5, 0.0, 41.5, 1, 0.4));
