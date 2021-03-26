@@ -24,31 +24,33 @@ public:
             Target(-3.5_ft,  5_ft, 0.2, yaw),
             Target(-3_ft,    5_ft, 0.4, yaw, 4_in),
 
-            Target(0_ft,    5_ft, 0.5, yaw, 4_in),
-            Target(4.5_ft,  6.5_ft, 0.6, yaw, 5_in),
-            Target(4.5_ft, 14_ft, 0.5, yaw, 3_in),
+            Target(0_ft,    5_ft,  0.4, yaw, 3_in),
+            Target(0_ft,    7.75_ft, 0.4, yaw, 3_in),
+            Target(4.6_ft,  8_ft, 0.4, yaw, 3_in),
+            Target(4.7_ft, 13.0_ft, 0.5, yaw, 3_in),
 
             // Second point
-            Target(-3.0_ft,  14_ft, 0.6, yaw, 4_in),
-            Target(-3.25_ft, 14_ft, 0.4, yaw, 3_in),
-            Target(-3.5_ft,  14_ft, 0.2, yaw),
-            Target(-3.25_ft, 14_ft, 0.4, yaw, 4_in),
+            Target(1_ft,     13.75_ft, 0.3, yaw, 3_in),
+            Target(-3.0_ft,  14.25_ft, 0.5, yaw, 2_in),
+    
+            Target(5_ft,  15.25_ft, 0.5, yaw, 3_in),
+            Target(5.25_ft,  22.25_ft, 0.4, yaw, 2_in),
 
-            Target(4.5_ft, 15_ft, 0.4, yaw, 4_in),
-            Target(4.5_ft, 22.5_ft, 0.4, yaw, 5_in),
-
+            
             // Third point
-            Target(-3.0_ft,  22.5_ft, 0.6, yaw, 4_in),
-            Target(-3.25_ft, 22.5_ft, 0.4, yaw, 3_in),
-            Target(-3.5_ft,  22.5_ft, 0.2, yaw),
+            Target(-2.5_ft,  23.25_ft, 0.6, yaw, 4_in),
+            Target(-3.0_ft,  23.25_ft, 0.4, yaw, 4_in),
+            Target(-3.25_ft, 23.25_ft, 0.4, yaw, 3_in),
+            Target(-3.5_ft,  23.5_ft, 0.2, yaw, 2_in),
 
             // Exit
-            Target(0_ft, 23_ft, 0.3, yaw, 5_in),
-            Target(0_ft, 25.0_ft, 0.4, yaw, 5_in),
-            Target(0_ft, 30.5_ft, 0.4, yaw),
+            // Starting to lose encoders here, so give it an extra boost
+            Target(1_ft, 24_ft, 0.4, yaw, 2_in),
+            Target(1.25_ft, 30.0_ft, 0.5, yaw, 2_in),
         });
         steps.push_back(path);
     }
 
 private:
+
 };
