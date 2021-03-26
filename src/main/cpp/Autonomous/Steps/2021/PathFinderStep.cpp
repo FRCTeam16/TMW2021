@@ -29,9 +29,9 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
     inch_t dY = currentTarget.ypos - curY;
     inch_t distanceToTarget = inch_t{ sqrt(pow(dX.to<double>(), 2) + pow(dY.to<double>(), 2)) };
 
-    std::cout << "Currnt: (" << curX << " | " << curY << ")\n";
+    std::cout << "[" << targetIdx << "] Currnt: (" << curX << " | " << curY << ") => ";
     std::cout << "Target: (" << currentTarget.xpos << " | " << currentTarget.ypos << ")\n";
-    std::cout << "Distance to target: " << distanceToTarget << "\n";
+    std::cout << "TargetDist: " << distanceToTarget << "\n";
 
     // Check if we close enough to target to go to the next step
     if (distanceToTarget <= currentTarget.distance_threshold) {
@@ -44,6 +44,8 @@ bool PathFinderStep::Run(std::shared_ptr<World> world)
             Robot::driveBase->SetTargetAngle(currentTarget.angle.to<double>()); 
             targets.pop();
             finishedPath = false;
+            targetIdx++;
+            std::cout << "\n";
         }
         return false;   // pickup next target next scan
     }

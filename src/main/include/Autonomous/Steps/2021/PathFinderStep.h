@@ -25,7 +25,7 @@ public:
 class PathFinderStep : public Step
 {
 public:
-    PathFinderStep(initializer_list<Target> list)
+    PathFinderStep(std::initializer_list<Target> list)
     //: targets(std::deque<Target>(list.begin(), list.end()))
     {
         std::cout << "PathFinderStep::PathFinderStep()";
@@ -33,7 +33,7 @@ public:
             targets.push(t);
         }
         auto target = targets.front();
-        std::cout << "Target: (" << target.xpos << ', ' << target.ypos << ")\n";
+        std::cout << "Target: (" << target.xpos << ", " << target.ypos << ")\n";
     }
 
     bool Run(std::shared_ptr<World> world) override;
@@ -43,4 +43,5 @@ private:
     bool finishedPath = false;
     queue<Target> targets;
     Target currentTarget {0_ft, 0_ft, 0, 0_deg, 0_in};
+    int targetIdx = 0;
 };
