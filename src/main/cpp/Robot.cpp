@@ -52,6 +52,8 @@ void Robot::RobotInit() {
 	localMap.reset(new LocalMap(encoderWheel));
 	SmartDashboard::PutString("GalacticSearch", "Unknown");
 
+	determineGalacticSearchPathStep = new DetermineGalacticSearchPathStep(nullptr, visionSystem);
+
 	std::cout << "Robot::RobotInit <=\n";
 }
 
@@ -62,6 +64,9 @@ void Robot::DisabledPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 	localMap->UpdateFieldPosition();
 
+	visionSystem->Run();	//hack
+	determineGalacticSearchPathStep->Run(nullptr);
+	
 	InstrumentSubsystems();
 	HandleGlobalInputs();	
 }

@@ -4,20 +4,23 @@
 #include "../../Strategies/2021/GalacticSearchAutoStrategy.h"
 #include "Robot.h"
 
+
 class DetermineGalacticSearchPathStep : public Step {
 public:
 
-    DetermineGalacticSearchPathStep(GalacticSearchAutoStrategy *parent)
-        : parent(parent)
+    DetermineGalacticSearchPathStep(GalacticSearchAutoStrategy *parent,  std::shared_ptr<VisionSystem> visionSystem)
+        : parent(parent), visionSystem(visionSystem)
     {
     }
 
     bool Run(std::shared_ptr<World> world) override
     {
-        cout << "DetermineGalacticSearchPathStep ==> Run\n";
+        const bool hasParent = parent != nullptr;
+
+        if (hasParent) cout << "DetermineGalacticSearchPathStep ==> Run\n";
         // Do our scan work to determine which path
-        auto visionInfo = Robot::visionSystem->GetLastVisionInfo();
-        cout << "DetermineGalacticSearchPathStep ==> Vision : " << visionInfo << " :\n";
+        auto visionInfo = visionSystem->GetLastVisionInfo();
+        if (hasParent) cout << "DetermineGalacticSearchPathStep ==> VisionInfo : " << visionInfo << " :\n";
 
 
     
@@ -29,38 +32,48 @@ public:
 
         if(x <= 10 && x >= -30) {
             if(x >= -10) {
-                parent ->RedA();
+                if (hasParent) {
+                    parent ->RedA();
+                    cout << "RedA\n"; 
+                }
                 SmartDashboard::PutString("GalacticSearch", "RedA");
-                cout << "RedA\n"; 
             }
             else {
                 SmartDashboard::PutString("GalacticSearch", "RedB");
-                parent -> RedB();
-                cout << "RedB\n";
+                if (hasParent) {
+                    parent -> RedB();
+                    cout << "RedB\n";
+                }
             }
         }
              
         else {
            
             if (x > 10  && x <= 20){
-                parent -> BlueB();
+                if (hasParent) {
+                    parent -> BlueB();
+                    cout << "BlueA\n";
+                }
                 SmartDashboard::PutString("GalacticSearch", "BlueA");
-                cout << "BlueA\n";
+                
             }
 
             else {
-                parent -> BlueA();
+                if (hasParent) {
+                    parent -> BlueA();
+                    cout << "BlueB\n";
+                }
                 SmartDashboard::PutString("GalacticSearch", "BlueB");
-                cout << "BlueB\n";
             }
         }
         
         
 
-        parent->StopPath();
+        if (hasParent) parent->StopPath();
         return true;
     }
 
 private:
-    GalacticSearchAutoStrategy *parent; 
+    GalacticSearchAutoStrategy *parent;
+    std::shared_ptr<VisionSystem> visionSystem;
 };

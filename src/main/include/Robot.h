@@ -26,6 +26,8 @@
 #include "Sensors/EncoderWheel.h"
 #include "Sensors/LocalMap.h"
 
+#include "Autonomous/Steps/2021/DetermineGalacticSearchPathStep.h"
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -71,4 +73,7 @@ private:
 
   // Operator input flags
   frc::DigitalInput toggleArmBreakModeButton{0};  
+
+  // Debug
+  DetermineGalacticSearchPathStep *determineGalacticSearchPathStep;
 };
