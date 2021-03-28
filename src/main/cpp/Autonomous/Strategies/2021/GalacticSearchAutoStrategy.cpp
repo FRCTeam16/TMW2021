@@ -8,6 +8,7 @@
 #include "Autonomous/World.h"
 
 #include "Autonomous/Steps/2021/ControlIntakeStep.h"
+#include "Autonomous/Steps/2021/PathFinderStep.h"
 
 
 GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> world) {
@@ -17,7 +18,6 @@ GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> wo
 void GalacticSearchAutoStrategy::Init(std::shared_ptr<World> world) {
 	std::cout << "GalacticSearchAutoStrategy::Init()\n";
 	steps.push_back(new ControlIntakeStep(true));
-	steps.push_back(new Delay(.75));
 	steps.push_back(new DetermineGalacticSearchPathStep(this, Robot::visionSystem));
 }
 
@@ -34,6 +34,8 @@ void GalacticSearchAutoStrategy::RedA() {
 	}
 
 	*/
+	steps.push_back(new Delay(.75));
+
 
 	steps.push_back(new OpenDriveToDistance(0.0, 0.5, 0.15, 60,1,0.4 ));
 	steps.push_back(new DriveToDistance(0,0.5,30_in,70_in));
@@ -42,6 +44,7 @@ void GalacticSearchAutoStrategy::RedA() {
 
 }
 void GalacticSearchAutoStrategy::RedB() {
+	steps.push_back(new Delay(.75));
 
 
 	steps.push_back(new OpenDriveToDistance(0.0,0.5,0,60,0.4));
@@ -64,11 +67,22 @@ void GalacticSearchAutoStrategy::BlueA() {
 }
 void GalacticSearchAutoStrategy::BlueB() {
 
-	steps.push_back(new OpenDriveToDistance(0.0,0.5,0,150,0.4));
-	steps.push_back(new DriveToDistance(0,0.5,-60_in,60_in));
-	steps.push_back(new DriveToDistance(0,0.5,60_in,60_in));
-	steps.push_back(new DriveToDistance(0,0.5,-60_in,60_in));
-	steps.push_back(new OpenDriveToDistance(0.0,0.7,0,120,2,0.25));
+	/*
+	steps.push_back(new PathFinderStep({
+		Target(3.5_ft, 15_ft, 0.7, 0_deg, 3_in),
+		Target(-1_ft, 17.5_ft, 0.5, 0_deg, 3_in),
+		Target(-1_ft, 20.5_ft, 0.5, 0_deg, 3_in),
+		Target(2_ft,  20.5_ft, 0.5, 0_deg, 3_in),
+		Target(2_ft,  30_ft, 0.7, 0_deg, 5_in)
+
+	}));
+	*/
+
+	 steps.push_back(new DriveToDistance(0,0.95,43_in,155_in));
+	 steps.push_back(new DriveToDistance(0,0.7,-74_in,53_in));
+	 steps.push_back(new DriveToDistance(0,0.7,57_in,60_in));
+	 steps.push_back(new DriveToDistance(0, 0.5, 0_in, 60_in));
+	 //steps.push_back(new OpenDriveToDistance(0.0, 0.7, 0, 120, 2, 0.25));
 
 }
 
