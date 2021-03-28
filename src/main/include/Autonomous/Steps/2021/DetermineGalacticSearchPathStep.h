@@ -45,13 +45,11 @@ public:
                     cout << "RedB\n";
                 }
             }
-        }
-             
+        }     
         else {
-           
-            if (x > 10  && x <= 20){
+            if (x > 18){
                 if (hasParent) {
-                    parent -> BlueB();
+                    parent -> BlueA();
                     cout << "BlueA\n";
                 }
                 SmartDashboard::PutString("GalacticSearch", "BlueA");
@@ -60,7 +58,7 @@ public:
 
             else {
                 if (hasParent) {
-                    parent -> BlueA();
+                    parent -> BlueB();
                     cout << "BlueB\n";
                 }
                 SmartDashboard::PutString("GalacticSearch", "BlueB");

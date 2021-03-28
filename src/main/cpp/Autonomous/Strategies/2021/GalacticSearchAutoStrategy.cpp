@@ -1,4 +1,5 @@
 #include "Autonomous/Strategies/2021/GalacticSearchAutoStrategy.h"
+#include "Autonomous/Steps/Delay.h"
 #include "Autonomous/Steps/DriveToDistance.h"
 #include "Autonomous/Steps/OpenDriveToDistance.h"
 #include "Autonomous/Steps/SetGyroOffset.h"	
@@ -16,6 +17,7 @@ GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> wo
 void GalacticSearchAutoStrategy::Init(std::shared_ptr<World> world) {
 	std::cout << "GalacticSearchAutoStrategy::Init()\n";
 	steps.push_back(new ControlIntakeStep(true));
+	steps.push_back(new Delay(.75));
 	steps.push_back(new DetermineGalacticSearchPathStep(this, Robot::visionSystem));
 }
 
@@ -35,7 +37,7 @@ void GalacticSearchAutoStrategy::RedA() {
 
 	steps.push_back(new OpenDriveToDistance(0.0, 0.5, 0.15, 60,1,0.4 ));
 	steps.push_back(new DriveToDistance(0,0.5,30_in,70_in));
-	steps.push_back(new DriveToDistance(-64.0,0.5,-130_in,64_in));
+	steps.push_back(new DriveToDistance(-64.0,0.5,-130_in,65_in));
 	steps.push_back(new OpenDriveToDistance(-64,0.7,0,150,1,0.4));
 
 }
@@ -52,10 +54,11 @@ void GalacticSearchAutoStrategy::RedB() {
 void GalacticSearchAutoStrategy::BlueA() {
 
 
-	steps.push_back(new OpenDriveToDistance(0.0, 0.5,0,150,1,0.4 ));
-	steps.push_back(new DriveToDistance(-64.0,0.5,-60_in,30_in));
-	steps.push_back(new DriveToDistance(0,0.5,30_in,60_in));
-	steps.push_back(new OpenDriveToDistance(0.0,0.7,0,60,2,0.25));
+	//steps.push_back(new OpenDriveToDistance(0.0, 0.5,0.3,150,1,0.4 ));
+	steps.push_back(new DriveToDistance(0, 		0.5,  80_in, 160_in));
+	steps.push_back(new DriveToDistance(-64.0,	0.5,-113_in, 70_in));
+	steps.push_back(new DriveToDistance(15,	0.5,  30_in, 60_in));	// -35 0.5  70 60
+	steps.push_back(new OpenDriveToDistance(0.0, 0.7, 0, 60, 2, 0.25));
 
 
 }
