@@ -58,10 +58,10 @@ void GalacticSearchAutoStrategy::BlueA() {
 
 
 	//steps.push_back(new OpenDriveToDistance(0.0, 0.5,0.3,150,1,0.4 ));
-	steps.push_back(new DriveToDistance(0, 		0.5,  80_in, 160_in));
-	steps.push_back(new DriveToDistance(-64.0,	0.5,-113_in, 70_in));
-	steps.push_back(new DriveToDistance(15,	0.5,  30_in, 60_in));	// -35 0.5  70 60
-	steps.push_back(new OpenDriveToDistance(0.0, 0.7, 0, 60, 2, 0.25));
+	steps.push_back(new DriveToDistance(0, 		0.95,  71_in, 155_in));
+	// steps.push_back(new DriveToDistance(-64.0,	0.5,-113_in, 70_in));
+	// steps.push_back(new DriveToDistance(15,	0.5,  30_in, 60_in));	// -35 0.5  70 60
+	// steps.push_back(new OpenDriveToDistance(0.0, 0.7, 0, 60, 2, 0.25));
 
 
 }
