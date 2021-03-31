@@ -29,6 +29,7 @@
 #include "Autonomous/Steps/2020/SetTurretPosition.h"
 
 #include "Autonomous/Steps/2021/PathFinderStep.h"
+#include "Autonomous/Steps/2021/UnlatchArmStep.h"
 
 #include <units/length.h>
 
@@ -37,27 +38,21 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	// Measure();
 	std::cout << "--- DEBUG Autonomous ---\n";
 
-	degree_t robot_yaw = -2.0_deg;
-	double speed = 0.2;
-	
-	// auto step = new PathFinderStep({
-	// 	Target(0_ft, 5_ft, speed, robot_yaw),
-	// 	Target(5_ft, 5_ft, speed, robot_yaw),
-	// 	Target(5_ft, 0_ft, speed, robot_yaw),
-	// 	Target(0_ft, 0_ft, speed, robot_yaw)
-	// });
+	steps.push_back(new UnlatchArmStep());
 
+	// degree_t robot_yaw = -2.0_deg;
+	// double speed = 0.2;
 	
 	//steps.push_back(new SetGyroOffset(90.0));
 	
-	auto step = new PathFinderStep({
-		Target(0_ft, 5_ft, speed, robot_yaw),
-		Target(-5_ft, 5_ft, speed, robot_yaw),
-		Target(-5_ft, 0_ft, speed, robot_yaw),
-		Target(0_ft, 0_ft, speed, robot_yaw)
-	});
-	steps.push_back(new Rotate(robot_yaw.to<double>()));
-	steps.push_back(step);
+	// auto step = new PathFinderStep({
+	// 	Target(0_ft, 5_ft, speed, robot_yaw),
+	// 	Target(-5_ft, 5_ft, speed, robot_yaw),
+	// 	Target(-5_ft, 0_ft, speed, robot_yaw),
+	// 	Target(0_ft, 0_ft, speed, robot_yaw)
+	// });
+	// steps.push_back(new Rotate(robot_yaw.to<double>()));
+	// steps.push_back(step);
 }
 	
 

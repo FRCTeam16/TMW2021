@@ -9,6 +9,7 @@
 
 #include "Autonomous/Steps/2021/ControlIntakeStep.h"
 #include "Autonomous/Steps/2021/PathFinderStep.h"
+#include "Autonomous/Steps/2021/UnlatchArmStep.h"
 
 
 GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> world) {
@@ -34,6 +35,7 @@ void GalacticSearchAutoStrategy::RedA() {
 	}
 
 	*/
+	steps.push_back(new UnlatchArmStep());
 	steps.push_back(new Delay(.75));
 
 
@@ -44,6 +46,7 @@ void GalacticSearchAutoStrategy::RedA() {
 
 }
 void GalacticSearchAutoStrategy::RedB() {
+	steps.push_back(new UnlatchArmStep());
 	steps.push_back(new Delay(.75));
 
 
@@ -55,7 +58,7 @@ void GalacticSearchAutoStrategy::RedB() {
 
 }
 void GalacticSearchAutoStrategy::BlueA() {
-
+	steps.push_back(new UnlatchArmStep());
 
 	//steps.push_back(new OpenDriveToDistance(0.0, 0.5,0.3,150,1,0.4 ));
 	steps.push_back(new DriveToDistance(0, 		0.95,  71_in, 155_in));
@@ -66,7 +69,7 @@ void GalacticSearchAutoStrategy::BlueA() {
 
 }
 void GalacticSearchAutoStrategy::BlueB() {
-
+	steps.push_back(new UnlatchArmStep());
 	/*
 	steps.push_back(new PathFinderStep({
 		Target(3.5_ft, 15_ft, 0.7, 0_deg, 3_in),
