@@ -27,7 +27,7 @@ public:
         auto x = visionInfo ->xOffset;
         auto y = visionInfo ->yOffset;
 
-        //parent ->RedA();
+        //parent ->RedB();
         //return true;
 
         if(x <= 10 && x >= -30) {

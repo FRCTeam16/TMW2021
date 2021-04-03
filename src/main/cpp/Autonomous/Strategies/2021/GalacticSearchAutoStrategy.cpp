@@ -50,7 +50,7 @@ void GalacticSearchAutoStrategy::RedB() {
 	steps.push_back(new Delay(.75));
 
 
-	steps.push_back(new OpenDriveToDistance(0.0,0.5,0,60,0.4));
+	steps.push_back(new OpenDriveToDistance(0.0,0.5,0.1,60,0.4));
 	steps.push_back(new DriveToDistance(0,0.5,60_in,60_in));
 	steps.push_back(new DriveToDistance(0,0.5,-60_in,60_in));
 	steps.push_back(new DriveToDistance(0,0.5,60_in,60_in));
@@ -59,17 +59,19 @@ void GalacticSearchAutoStrategy::RedB() {
 }
 void GalacticSearchAutoStrategy::BlueA() {
 	steps.push_back(new UnlatchArmStep());
+	steps.push_back(new Delay(.5));
 
 	//steps.push_back(new OpenDriveToDistance(0.0, 0.5,0.3,150,1,0.4 ));
-	steps.push_back(new DriveToDistance(0, 		0.95,  71_in, 155_in));
-	// steps.push_back(new DriveToDistance(-64.0,	0.5,-113_in, 70_in));
-	// steps.push_back(new DriveToDistance(15,	0.5,  30_in, 60_in));	// -35 0.5  70 60
+	steps.push_back(new DriveToDistance(0, 		0.95,  74_in, 155_in));
+	steps.push_back(new DriveToDistance(-64.0,	0.8, -100_in, 58_in));
+	 steps.push_back(new DriveToDistance(-55,	0.5,  40_in, 60_in));	// -35 0.5  70 60
 	// steps.push_back(new OpenDriveToDistance(0.0, 0.7, 0, 60, 2, 0.25));
 
 
 }
 void GalacticSearchAutoStrategy::BlueB() {
 	steps.push_back(new UnlatchArmStep());
+	steps.push_back(new Delay(.5));
 	/*
 	steps.push_back(new PathFinderStep({
 		Target(3.5_ft, 15_ft, 0.7, 0_deg, 3_in),

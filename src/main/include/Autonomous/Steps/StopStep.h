@@ -1,4 +1,4 @@
-#ifndef SRC_AUTONOMOUS_STEPS_STOPSTEP_H_
+/*#ifndef SRC_AUTONOMOUS_STEPS_STOPSTEP_H_
 #define SRC_AUTONOMOUS_STEPS_STOPSTEP_H_
 
 #include <vector>
@@ -18,4 +18,12 @@ public:
 	}
 };
 
-#endif /* SRC_AUTONOMOUS_STEPS_STOPSTEP_H_ */
+#endif /* SRC_AUTONOMOUS_STEPS_STOPSTEP_H_ */ 
+
+
+
+
+
+// IT WAS CAUSING AN ERROR
+
+
