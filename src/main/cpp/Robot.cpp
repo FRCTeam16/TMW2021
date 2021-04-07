@@ -58,6 +58,7 @@ void Robot::RobotInit() {
 }
 
 void Robot::DisabledInit() {
+	RobotMap::latchServo->SetAngle(RobotMap::latchServo->GetAngle());
 }
 
 void Robot::DisabledPeriodic() {

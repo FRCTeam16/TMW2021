@@ -4,6 +4,7 @@
 #include <frc/Encoder.h>
 #include <frc/Solenoid.h>
 #include <frc/PowerDistributionPanel.h>
+#include <frc/Servo.h>
 #include <ctre/Phoenix.h>
 #include <rev/CANSparkMax.h>
 #include "Gyro/BSGyro.h"
@@ -47,5 +48,7 @@ class RobotMap {
   
   static std::shared_ptr<frc::Encoder> driveEncoderX;
   static std::shared_ptr<frc::Encoder> driveEncoderY;
+
+  static std::shared_ptr<frc::Servo> latchServo;
 
 };

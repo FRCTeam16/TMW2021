@@ -33,6 +33,8 @@
 
   std::shared_ptr<frc::PowerDistributionPanel> RobotMap::powerDistributionPanel;
 
+  std::shared_ptr<frc::Servo> RobotMap::latchServo;
+
 
 RobotMap::RobotMap() {
   driveBaseFrontLeftDrive.reset(new rev::CANSparkMax{7, rev::CANSparkMax::MotorType::kBrushless});
@@ -58,4 +60,6 @@ RobotMap::RobotMap() {
 
   driveEncoderX.reset(new frc::Encoder(1, 2, true, frc::Encoder::EncodingType::k4X));
   driveEncoderY.reset(new frc::Encoder(5, 6, true, frc::Encoder::EncodingType::k4X));
+
+  latchServo.reset(new frc::Servo(0));
 }
