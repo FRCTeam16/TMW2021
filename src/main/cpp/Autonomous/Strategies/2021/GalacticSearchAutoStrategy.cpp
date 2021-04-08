@@ -11,6 +11,8 @@
 #include "Autonomous/Steps/2021/PathFinderStep.h"
 #include "Autonomous/Steps/2021/UnlatchArmStep.h"
 
+#include <units/time.h>
+
 
 GalacticSearchAutoStrategy::GalacticSearchAutoStrategy(std::shared_ptr<World> world) {
 	std::cout << "--- GalacticSearch Autonomous ---\n";
@@ -62,10 +64,12 @@ void GalacticSearchAutoStrategy::BlueA() {
 	steps.push_back(new Delay(.5));
 
 	//steps.push_back(new OpenDriveToDistance(0.0, 0.5,0.3,150,1,0.4 ));
-	steps.push_back(new DriveToDistance(0, 		0.95,  80_in, 155_in));
-	steps.push_back(new DriveToDistance(-60.0,	0.8, -100_in, 57_in));
-	 steps.push_back(new DriveToDistance(-55,	0.8,  42_in, 60_in));	// -35 0.5  70 60
-	 steps.push_back(new DriveToDistance(-55, 0.8, 0_in, 30_in));
+	auto first = new DriveToDistance(0, 		0.95,  81_in, 155_in);
+	first->SetRampUpTime(0.5_s);
+	steps.push_back(first);
+	steps.push_back(new DriveToDistance(-60.0,	0.8, -100_in, 60_in));
+	steps.push_back(new DriveToDistance(31.0,	0.8,  38_in, 60_in));	// -35 0.5  70 60
+	steps.push_back(new DriveToDistance(31, 0.8, 0_in, 60_in));
 
 
 }
@@ -82,8 +86,9 @@ void GalacticSearchAutoStrategy::BlueB() {
 
 	}));
 	*/
-
-	 steps.push_back(new DriveToDistance(0,0.95,43_in,155_in));
+	auto first = new DriveToDistance(0,0.95,43_in,155_in);
+	first->SetRampUpTime(0.5_s);
+	 steps.push_back(first);
 	 steps.push_back(new DriveToDistance(0,0.7,-74_in,53_in));
 	 steps.push_back(new DriveToDistance(0,0.7,57_in,60_in));
 	 steps.push_back(new DriveToDistance(0, 0.5, 0_in, 60_in));

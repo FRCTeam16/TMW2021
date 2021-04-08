@@ -90,6 +90,9 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
+	std::cout << "Latch Servo started at: " << RobotMap::latchServo->GetAngle() << "\n";
+	RobotMap::latchServo->SetAngle(RobotMap::latchServo->GetAngle());
+
 	InitSubsystems();
 	std::cout << "Robot::TelopInit => driveBase->Init";
 	driveBase->InitTeleop();
