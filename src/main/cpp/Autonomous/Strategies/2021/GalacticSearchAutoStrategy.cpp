@@ -91,7 +91,8 @@ void GalacticSearchAutoStrategy::BlueB() {
 	 steps.push_back(first);
 	 steps.push_back(new DriveToDistance(0,0.7,-74_in,53_in));
 	 steps.push_back(new DriveToDistance(0,0.7,57_in,60_in));
-	 steps.push_back(new DriveToDistance(0, 0.5, 0_in, 60_in));
+	 steps.push_back(new DriveToDistance(0, 0.7, 0_in, 60_in));
+	 steps.push_back(new DriveToDistance(0,0.7, 0_in, 60_in ));
 	 //steps.push_back(new OpenDriveToDistance(0.0, 0.7, 0, 120, 2, 0.25));
 
 }
