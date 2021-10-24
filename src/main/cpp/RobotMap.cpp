@@ -47,14 +47,16 @@ RobotMap::RobotMap() {
   driveBaseRearLeftSteer.reset(new WPI_TalonSRX{4});
   driveBaseRearRightSteer.reset(new WPI_TalonSRX{2});
 
-  // auto concreteGyro = std::unique_ptr<PigeonBSGyro>(new PigeonBSGyro(intakeMotor.get()));
-  auto concreteGyro = std::unique_ptr<NavXBSGyro>(new NavXBSGyro(frc::I2C::Port::kMXP));
+  intakeMotor.reset(new WPI_TalonSRX{9});
+
+  auto concreteGyro = std::unique_ptr<PigeonBSGyro>(new PigeonBSGyro(intakeMotor.get()));
+  // auto concreteGyro = std::unique_ptr<NavXBSGyro>(new NavXBSGyro(frc::I2C::Port::kMXP));
   gyro = std::move(concreteGyro); 
 
   // compressor.reset(new frc::Compressor{0});
   // compressor->SetClosedLoopControl(true);
 
-  intakeMotor.reset(new WPI_TalonSRX{9});
+  
 
   powerDistributionPanel.reset(new frc::PowerDistributionPanel{0});
 
