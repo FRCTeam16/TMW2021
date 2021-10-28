@@ -19,7 +19,7 @@ AutoManager::AutoManager() :
 		strategies(new frc::SendableChooser<int>())
 {
 	strategies->AddOption("0 - None", AutoStrategy::kNone);
-	strategies->AddOption("99 - Debug Auto Strategy", AutoStrategy::kDebug);
+	strategies->SetDefaultOption("99 - Debug Auto Strategy", AutoStrategy::kDebug);
 	strategies->AddOption("1 - Slalom Drive",AutoStrategy::kSlalom);
 	strategies->AddOption("2 - Barrel Race", AutoStrategy::kBarrelRace);
 	strategies->AddOption("3 - Bounce", AutoStrategy::kBounce);

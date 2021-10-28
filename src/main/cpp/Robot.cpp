@@ -106,8 +106,8 @@ void Robot::TeleopPeriodic() {
 	frc::Scheduler::GetInstance()->Run();
 	
 	double threshold = 0.1;	// Used as general joystick deadband default
-	// const bool lockWheels = oi->DL6->Pressed();  Removed for auto testing
-	const bool lockWheels = false;
+	const bool lockWheels = oi->DL1->Pressed(); // Removed for auto testing
+	//const bool lockWheels = false;
 
 	const OI::DPad dPad = oi->GetGamepadDPad();
 	const bool startButtonPressed = oi->GPStart->Pressed();
@@ -193,7 +193,8 @@ void Robot::TeleopPeriodic() {
 				xMove,
 				useGyro);
 		} else {
-			driveBase->Crab(0, 0, 0, true);
+			driveBase->Lock();
+			//driveBase->Crab(0, 0, 0, true);
 		}
 	}
 	

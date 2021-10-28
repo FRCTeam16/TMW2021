@@ -142,10 +142,10 @@ void DriveBase::InitializeOffsets() {
 
 void DriveBase::Lock() {
 	DriveInfo<double> steering;
-	steering.FL = 0.375;
-	steering.FR = 0.75;
-	steering.RL = 0.75;
-	steering.RR = 4.5;	// FIXME: Units need updating
+	steering.FL = 0.375 * 360;
+	steering.FR = 0.625 * 360;
+	steering.RL = 0.625 * 360;
+	steering.RR = 0.375 * 360;	// FIXME: Units need updating
 	SetSteering(steering);
 
 	DriveInfo<double> lockSpeed;
