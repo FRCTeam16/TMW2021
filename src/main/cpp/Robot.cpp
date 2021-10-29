@@ -150,13 +150,15 @@ void Robot::TeleopPeriodic() {
 		twistInput = driveBase->GetTwistControlOutput();
 		
 	}
-
 	else if( oi->DL4->Pressed()) {
 		driveBase->SetTargetAngle(90.0);
 		twistInput = driveBase->GetTwistControlOutput();
 	}
 
-	
+
+	if (oi->DL16->RisingEdge()) {
+		RobotMap::latchServo->SetAngle(180);
+	}
 
 
 
