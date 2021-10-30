@@ -38,8 +38,8 @@ DebugAutoStrategy::DebugAutoStrategy(std::shared_ptr<World> world) {
 	// Measure();
 	std::cout << "--- DEBUG Autonomous ---\n";
 
-	steps.push_back(new UnlatchArmStep());
-	steps.push_back(new Delay(.75));
+	//steps.push_back(new UnlatchArmStep());
+	//steps.push_back(new Delay(.75));
 	steps.push_back(new TimedDrive(0.0, 0.3, 0.0, 1.0));
 
 	// degree_t robot_yaw = -2.0_deg;
